@@ -2,6 +2,7 @@
 using Database_interface;
 using System.Data.SqlClient;
 using Warehouse_Dal;
+using DTO_Warehouse;
 
 namespace test
 {
@@ -9,9 +10,13 @@ namespace test
     {
         static async Task Main(string[] args)
         {
-            Iselect select = new User_Dal();
-            await select.GetAll();
 
+            List<string> stink = await User_Dal.GetAll();
+
+            foreach (string item in stink)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warehouse_Dal", "..\..\Dal\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database_interface", "..\..\interface\Database_interface\Database_interface.csproj", "{E0CE2476-D160-424A-9602-C67F91D15543}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO_Warehouse", "DTO_Warehouse\DTO_Warehouse.csproj", "{9D0D4DC2-98DF-485A-97E2-C8E805F1B72B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{E0CE2476-D160-424A-9602-C67F91D15543}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0CE2476-D160-424A-9602-C67F91D15543}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0CE2476-D160-424A-9602-C67F91D15543}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D0D4DC2-98DF-485A-97E2-C8E805F1B72B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D0D4DC2-98DF-485A-97E2-C8E805F1B72B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D0D4DC2-98DF-485A-97E2-C8E805F1B72B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D0D4DC2-98DF-485A-97E2-C8E805F1B72B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

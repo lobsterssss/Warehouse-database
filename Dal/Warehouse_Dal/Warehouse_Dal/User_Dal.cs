@@ -6,32 +6,31 @@ using System.Text;
 using System.Threading.Tasks;
 using Database_interface;
 using MySqlConnector;
+using DTO_Warehouse;
+using System.Data;
 
 namespace Warehouse_Dal
 {
-    public class User_Dal
+    public static class User_Dal
     {
 
-        public static async Task<String> GetAll() 
+        public static async IAsyncEnumerable<DTOUser> GetAll() 
         {
             MySqlCommand sqlcommend = new MySqlCommand(@"Select * from users;");
-            string json = await Dal_database.Query(sqlcommend);
-            return json;
+            MySqlDataReader reader = await Dal_database.Query(sqlcommend);
+            while (await reader.ReadAsync()) 
+            {
+                yield return new DTOUser {
+                    ID = reader.GetInt32("ID"),
+                    Name = reader.GetString("Name"),
+                    Role_ID = reader.GetInt32("Role_ID"),
+                    Passcode = reader.GetString("Passcode")
+
+                };
+            }
+
         }
 
-        public Task GetOne(int id)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task GetOneWhere(int id, List<string> parameters)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task GetWhere(int id, List<string> parameters)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

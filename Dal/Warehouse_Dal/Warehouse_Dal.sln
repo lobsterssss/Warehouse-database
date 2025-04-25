@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkdatabbase", "..\Checkd
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database_interface", "..\..\interface\Database_interface\Database_interface.csproj", "{99FB7430-8352-E2D7-3AEB-111941F47FC8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO_Warehouse", "..\..\Front\Warehouse\DTO_Warehouse\DTO_Warehouse.csproj", "{5B71BDF2-C8D3-68E8-0853-AFB9332A0711}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{99FB7430-8352-E2D7-3AEB-111941F47FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99FB7430-8352-E2D7-3AEB-111941F47FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99FB7430-8352-E2D7-3AEB-111941F47FC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B71BDF2-C8D3-68E8-0853-AFB9332A0711}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B71BDF2-C8D3-68E8-0853-AFB9332A0711}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B71BDF2-C8D3-68E8-0853-AFB9332A0711}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B71BDF2-C8D3-68E8-0853-AFB9332A0711}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
