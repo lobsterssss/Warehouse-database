@@ -4,31 +4,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Database_interface;
+using Interfaces;
 using MySqlConnector;
-using DTO_Warehouse;
 using System.Data;
+using Interfaces.DTOs;
 
 namespace Warehouse_Dal
 {
-    public static class User_Dal
+    public class User_Dal : IUserDal
     {
-
-        public static async IAsyncEnumerable<DTOUser> GetAll() 
+        public async IAsyncEnumerable<DTOUser> GetAll() 
         {
             MySqlCommand sqlcommend = new MySqlCommand(@"Select * from users;");
-            MySqlDataReader reader = await Dal_database.Query(sqlcommend);
-            while (await reader.ReadAsync()) 
+            using MySqlDataReader reader = await Dal_database.SelectQuery(sqlcommend);
+            while (await reader.ReadAsync())
             {
-                yield return new DTOUser {
+                yield return new DTOUser 
+                {
                     ID = reader.GetInt32("ID"),
                     Name = reader.GetString("Name"),
-                    Role_ID = reader.GetInt32("Role_ID"),
-                    Passcode = reader.GetString("Passcode")
-
+                    Role_ID = reader.IsDBNull(reader.GetOrdinal("Role_ID")) ? (int?)null : reader.GetInt32("Role_ID"),
+                    Passcode = reader.GetString("Passcode"),
                 };
             }
+        }
 
+        public Task GetOne(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task GetOneWhere(int id, List<string> parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task GetWhere(int id, List<string> parameters)
+        {
+            throw new NotImplementedException();
         }
 
 

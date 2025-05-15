@@ -11,11 +11,9 @@ namespace test
         static async Task Main(string[] args)
         {
 
-            List<string> stink = await User_Dal.GetAll();
-
-            foreach (string item in stink)
+            await foreach (DTOUser item in User_Dal.GetAll())
             {
-                Console.WriteLine(item);
+                Console.WriteLine(item.Name);
             }
         }
     }

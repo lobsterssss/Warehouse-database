@@ -1,0 +1,9 @@
+﻿@model Front_Warehouse.Models.WarehouseViewModel
+
+<a class="warehouse-box" asp-controller="Warehouse" asp-action="View" asp-route-id="@Model.ID">
+    <div>
+        <h3>@Model.Name</h3>
+        <p>@Model.Postcode</p>
+        <p>@Model.Street</p>
+    </div>
+</a>

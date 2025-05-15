@@ -1,0 +1,45 @@
+﻿@model WarehouseViewModel
+
+@{
+}
+
+<H2>@Model.Name</H2>
+<H4>@Model.Postcode</H4>
+<H4>@Model.Street</H4>
+
+<table>
+    <thead>
+        <tr>
+            <th>Products</th>
+        </tr>
+        <tr>
+            <th>code</th>
+            <th>On shelve</th>
+            <th>name</th>
+            <th>description</th>
+            <th>amount</th>
+            <th>actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var shelf in Model.Shelves)
+        {
+            @if (shelf.Products != null && shelf.Products.Any())
+            {
+                @foreach (var product in shelf.Products)
+                {
+                    <tr>
+                        <td>@product.ProductCode</td>
+                        <td>@shelf.Name</td>
+                        <td>@product.Name</td>
+                        <td>@product.Description</td>
+                        <td>@product.Amount</td>
+                        <td>hi there</td>
+
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+

@@ -1,4 +1,4 @@
-namespace Warehouse.Models
+namespace Front_Front_Warehouse.Models
 {
     public class ErrorViewModel
     {

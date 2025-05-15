@@ -1,0 +1,19 @@
+﻿@page
+@model Front_Warehouse.Models.UserViewModel
+
+@{
+}
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    <label>Email</label>
+    @Html.TextBoxFor(m => m.Name)
+    @Html.ValidationMessageFor(m => m.Name)
+    <!-- generates: <input name="Name" ...> -->
+
+    <label>Password</label>
+    @Html.PasswordFor(m => m.Password)<!-- generates: <input name="Email" ...> -->
+    @Html.ValidationMessageFor(m => m.Password)
+
+    <button type="submit">Register</button>
+}

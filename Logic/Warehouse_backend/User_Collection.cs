@@ -1,19 +1,37 @@
-﻿using System;
+﻿using Interfaces;
+using Interfaces.DTOs;
+using System;
 using System.Data;
+using System.Reflection.PortableExecutable;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Warehouse_Dal;
 
 namespace Warehouse_backend
 {
-    public static class UserCollection
+    public class UserCollection
     {
-        public static async Task<List<User>> GetAllUsers(int ID) 
+        private readonly IUserDal UserDal;
+
+        public UserCollection(IUserDal userDal)
         {
-            string json = await User_Dal.GetAll();
-            List<User> users = new List<User>();
-            users = JsonSerializer.Deserialize<List<User>>(json);
-            return users;
+            UserDal = userDal;
+        }
+
+        public async IAsyncEnumerable<User> GetAllUsers() 
+        {
+            IAsyncEnumerable<DTOUser> users = UserDal.GetAll();
+
+            await foreach (DTOUser user in users)
+            {
+                yield return new User() 
+                {
+                    ID = user.ID,
+                    Name = user.Name,
+                    //Role = user.Role_ID
+
+                };
+            }
         }
     }
 }
