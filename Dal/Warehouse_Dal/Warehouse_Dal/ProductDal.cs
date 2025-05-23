@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Warehouse_Dal
 {
-    public class Product_Dal : IProductDal
+    public class ProductDal : IProductDal
     {
         public async IAsyncEnumerable<DTOProduct> GetShelveProducts(int ID)
         {
@@ -21,7 +21,7 @@ namespace Warehouse_Dal
                     ON products.Product_type_ID = product_type.ID
                 where shelves.ID = 2;");
             sqlcommend.Parameters.AddWithValue("@ID", ID);
-            using MySqlDataReader reader = await Dal_database.SelectQuery(sqlcommend);
+            using MySqlDataReader reader = await Daldatabase.ReaderQuery(sqlcommend);
             while (await reader.ReadAsync())
             {
                 yield return new DTOProduct

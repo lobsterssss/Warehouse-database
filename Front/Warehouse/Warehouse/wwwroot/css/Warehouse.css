@@ -1,6 +1,6 @@
 ﻿.warehouse-box {
     display: block;
-    padding: 0.5rem;
+    padding: 1.5rem;
     color: black;
     border-radius: 8px;
     border-style: solid;
@@ -11,9 +11,28 @@
     transition: box-shadow cubic-bezier(.73,.48,.29,1.3) 0.5s;
     margin-bottom: 2em;
     &:hover
-{
-    color: black;
-    box-shadow: 0.3rem 0.3rem 8px 0.125rem rgba(0,0,0,0.35);
+    {
+        color: black;
+        box-shadow: 0.3rem 0.3rem 8px 0.125rem rgba(0,0,0,0.35);
+    }
+
 }
 
+Warehouse-Container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-column-gap: 1rem;
+    grid-row-gap: 1rem;
+
+}
+
+table {
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    border-radius: 8px;
+    tbody > tr:nth-child(even), thead > tr
+    {
+        background-color: rgb(235, 235, 235);
+    }
 }

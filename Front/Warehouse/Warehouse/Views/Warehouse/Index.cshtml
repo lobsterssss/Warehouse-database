@@ -5,7 +5,16 @@
 @{
 }
 
-@foreach (WarehouseViewModel warehouse in Model)
-{
-    @Html.Partial("Partials/WarehousePartial", warehouse)
-}
+<article>
+    <section>
+        <a asp-controller="Warehouse" asp-action="Create">
+            <button>Create Warehouse</button>
+        </a>
+    </section>
+    <Warehouse-Container>
+        @foreach (WarehouseViewModel warehouse in Model)
+        {
+            @Html.Partial("Partials/WarehousePartial", warehouse)
+        }
+    </Warehouse-Container>
+</article>

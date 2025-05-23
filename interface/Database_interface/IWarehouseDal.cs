@@ -9,9 +9,15 @@ namespace Interfaces
 {
      public interface IWarehouseDal
     {
-        public IAsyncEnumerable<DTOWarehouse> GetAll();
+        public IAsyncEnumerable<DTOWarehouse> GetAllWarehouse();
 
-        public IAsyncEnumerable<DTOWarehouse> GetOne(int ID);
+        public IAsyncEnumerable<DTOWarehouse> GetWarehouse(int ID);
+
+        public IAsyncEnumerable<int> CreateWarehouse(DTOWarehouse dTOWarehouse);
+
+        public Task DeleteWarehouse(int ID);
+
+        public Task UpdateWarehouse(DTOWarehouse dTOWarehouse);
 
     }
 }

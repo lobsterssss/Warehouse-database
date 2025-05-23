@@ -1,0 +1,25 @@
+﻿@model WarehouseViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    <label>Name</label>
+    @Html.TextBoxFor(m => m.Name)
+    @Html.ValidationMessageFor(m => m.Name)
+    <!-- generates: <input name="Name" ...> -->
+
+    <label>Postcode</label>
+    @Html.TextBoxFor(m => m.Postcode)
+    @Html.ValidationMessageFor(m => m.Postcode)
+
+    <label>Street</label>
+    @Html.TextBoxFor(m => m.Street)
+    @Html.ValidationMessageFor(m => m.Street)
+    <label>Password</label>
+
+    <button type="submit">Commit</button>
+}

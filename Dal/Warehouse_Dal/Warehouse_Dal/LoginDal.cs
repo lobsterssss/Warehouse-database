@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Warehouse_Dal
 {
-    public class Login_Dal : ILoginDal
+    public class LoginDal : ILoginDal
     {
         public async IAsyncEnumerable<DTOUser> LoginRequest(string Name)
         {
             MySqlCommand sqlcommend = new MySqlCommand(@"Select * from users where Name = @Name;");
             sqlcommend.Parameters.AddWithValue("@Name", Name);
-            using MySqlDataReader reader = await Dal_database.SelectQuery(sqlcommend);
+            using MySqlDataReader reader = await Daldatabase.ReaderQuery(sqlcommend);
             while (await reader.ReadAsync())
             {
                 yield return new DTOUser

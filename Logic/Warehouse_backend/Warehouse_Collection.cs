@@ -3,10 +3,11 @@ using Interfaces.DTOs;
 using System;
 using System.Data;
 using System.Reflection.PortableExecutable;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Warehouse_Dal;
-
+[assembly: InternalsVisibleTo("UnitTestingWarehouseProj")]
 namespace Warehouse_backend
 {
     public class WarehouseCollection
@@ -26,7 +27,7 @@ namespace Warehouse_backend
 
         public async IAsyncEnumerable<Warehouse> GetAllWarehouses() 
         {
-            IAsyncEnumerable<DTOWarehouse> warehouses = WarehouseDal.GetAll();
+            IAsyncEnumerable<DTOWarehouse> warehouses = WarehouseDal.GetAllWarehouse();
 
             await foreach (DTOWarehouse warehouse in warehouses)
             {
@@ -43,7 +44,7 @@ namespace Warehouse_backend
         public async Task<Warehouse?> GetWarehouse(int ID)
         {
             Warehouse Warehouse = new Warehouse(WarehouseDal, ShelveDal, ProductDal);
-            IAsyncEnumerable<DTOWarehouse> warehouses = WarehouseDal.GetOne(ID);
+            IAsyncEnumerable<DTOWarehouse> warehouses = WarehouseDal.GetWarehouse(ID);
 
             await foreach (DTOWarehouse warehouse in warehouses)
             {
@@ -66,5 +67,26 @@ namespace Warehouse_backend
 
             return Warehouse;
         }
+
+        public async Task<int> CreateWarehouse(string name, string postcode, string street)
+        {
+            DTOWarehouse Warehouse = new DTOWarehouse() 
+            {
+               Name = name,
+               Postcode = postcode,
+               Street = street,
+            };
+
+            int WarehouseID = await WarehouseDal.CreateWarehouse(Warehouse).FirstAsync();
+
+            return WarehouseID;
+
+        }
+
+        public async Task DeleteWarehouse(int ID)
+        {
+            await WarehouseDal.DeleteWarehouse(ID);
+        }
+
     }
 }

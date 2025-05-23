@@ -7,18 +7,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<IUserDal, User_Dal>();
+builder.Services.AddScoped<IUserDal, UserDal>();
 builder.Services.AddScoped<UserCollection>();
-
-builder.Services.AddScoped<IWarehouseDal, Warehouse_Dal.Warehouse_Dal>();
-builder.Services.AddScoped<IShelveDal, Shelve_Dal>();
-builder.Services.AddScoped<IProductDal, Product_Dal>();
-
 builder.Services.AddScoped<WarehouseCollection>();
+
+
+builder.Services.AddScoped<IWarehouseDal, Warehouse_Dal.WarehouseDal>();
+builder.Services.AddScoped<IShelveDal, ShelveDal>();
+builder.Services.AddScoped<IProductDal, ProductDal>();
+
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddHttpContextAccessor();
-
 
 builder.Services.AddSession(options =>
 {

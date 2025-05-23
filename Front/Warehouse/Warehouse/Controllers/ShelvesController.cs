@@ -7,19 +7,19 @@ using Warehouse_Dal;
 
 namespace Front_Front_Warehouse.Controllers
 {
-    [Route("/")]
-    public class WarehouseController : Controller
+    [Route("{WarehouseID}/shelves/")]
+    public class ShelveController : Controller
     {
         private readonly WarehouseCollection warehouseCollection;
 
         public List<WarehouseViewModel> warehousesViewModel = new List<WarehouseViewModel>();
 
-        public WarehouseController(WarehouseCollection warehouseCollection)
+        public ShelveController(WarehouseCollection warehouseCollection)
         {
             this.warehouseCollection = warehouseCollection;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int WarehouseID)
         {
             warehousesViewModel = await this.warehouseCollection.GetAllWarehouses().Select(warehouse => new WarehouseViewModel
             {
@@ -65,10 +65,9 @@ namespace Front_Front_Warehouse.Controllers
             return View("WarehouseForm");
         }
 
-        [HttpPost("/Create")]
-        public async Task<IActionResult> CreatePost(string Name, string Postcode, string Street)
+        public async Task<IActionResult> CreatePost(string Name )
         {
-            int WarehouseID = await this.warehouseCollection.CreateWarehouse(Name, Postcode, Street);
+            int WarehouseID = await this.warehouseCollection.CreateWarehouse(Name);
             return Redirect($"/{WarehouseID}/View");
         }
 

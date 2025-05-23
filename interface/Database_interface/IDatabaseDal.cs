@@ -10,9 +10,9 @@ namespace Interfaces
 {
      public interface IDatabaseDal
     {
-        public static abstract Task<MySqlDataReader> SelectQuery(MySqlCommand Query);
+        public static abstract Task<MySqlDataReader> ReaderQuery(MySqlCommand Query);
 
-        public static abstract Task<int> InsertQuery(MySqlCommand Query);
+        public static abstract Task<int> ExecuteQuery(MySqlCommand Query);
 
     }
 }

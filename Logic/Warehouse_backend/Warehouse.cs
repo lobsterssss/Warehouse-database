@@ -29,6 +29,17 @@ namespace Warehouse_backend
         public String Street { get; set; }
         public List<Shelve> Shelves { get; set; }
 
+        public async Task EditWarehouse(string name, string postcode, string street) 
+        {
+            DTOWarehouse dTOWarehouse = new DTOWarehouse()
+            {
+                ID = this.ID,
+                Name = name,
+                Postcode = postcode,
+                Street = street,
+            };
+            this.WarehouseDal.UpdateWarehouse(dTOWarehouse);
+        }
 
         public async Task GetShelves() 
         {

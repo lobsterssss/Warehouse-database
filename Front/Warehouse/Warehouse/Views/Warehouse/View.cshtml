@@ -3,43 +3,57 @@
 @{
 }
 
-<H2>@Model.Name</H2>
-<H4>@Model.Postcode</H4>
-<H4>@Model.Street</H4>
+<article>
+    <H2>@Model.Name</H2>
+    <H4>@Model.Postcode</H4>
+    <H4>@Model.Street</H4>
 
-<table>
-    <thead>
-        <tr>
-            <th>Products</th>
-        </tr>
-        <tr>
-            <th>code</th>
-            <th>On shelve</th>
-            <th>name</th>
-            <th>description</th>
-            <th>amount</th>
-            <th>actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var shelf in Model.Shelves)
-        {
-            @if (shelf.Products != null && shelf.Products.Any())
+    <div>
+        <a asp-controller="Warehouse" asp-action="Edit" asp-route-id="@Model.ID">
+            <button>Edit Warehouse</button>
+        </a>
+        <a asp-controller="Warehouse" asp-action="Delete" asp-route-id="@Model.ID">
+            <button>Delete Warehouse</button>
+        </a>
+    </div>
+
+</article>
+
+<article>
+    <h4>
+        <th>Products</th>
+    </h4>
+    <table>
+        <thead>
+            <tr>
+                <th>code</th>
+                <th>On shelve</th>
+                <th>name</th>
+                <th>description</th>
+                <th>amount</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var shelf in Model.Shelves)
             {
-                @foreach (var product in shelf.Products)
+                @if (shelf.Products != null && shelf.Products.Any())
                 {
-                    <tr>
-                        <td>@product.ProductCode</td>
-                        <td>@shelf.Name</td>
-                        <td>@product.Name</td>
-                        <td>@product.Description</td>
-                        <td>@product.Amount</td>
-                        <td>hi there</td>
+                    @foreach (var product in shelf.Products)
+                    {
+                        <tr>
+                            <td>@product.ProductCode</td>
+                            <td>@shelf.Name</td>
+                            <td>@product.Name</td>
+                            <td>@product.Description</td>
+                            <td>@product.Amount</td>
+                            <td>hi there</td>
 
-                    </tr>
+                        </tr>
+                    }
                 }
             }
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</article>
 
