@@ -1,0 +1,28 @@
+﻿@model List<ShelveViewModel>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var warehouseID = Context.Request.RouteValues["warehouseID"];
+}
+
+<article>
+    <section>
+        <a asp-controller="Shelves" asp-route-WarehouseID="@warehouseID" asp-action="Create">
+            <button>Create shelves</button>
+        </a>
+    </section>
+    <Item-Container>
+        @if (Model.Count() > 0)
+        {
+            @foreach (ShelveViewModel shelve in Model)
+            {
+                @Html.Partial("Partials/ShelvePartial", shelve)
+            }
+        }
+        else
+        {
+            <h2>No Shelves found</h2>
+        }
+    </Warehouse-Container>
+</article>

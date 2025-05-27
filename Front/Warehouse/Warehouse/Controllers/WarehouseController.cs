@@ -35,6 +35,10 @@ namespace Front_Front_Warehouse.Controllers
         public async Task<IActionResult> View(int ID)
         {
             Warehouse bllWarehouse = await this.warehouseCollection.GetWarehouse(ID);
+            if (bllWarehouse == null) 
+            {
+                return View("Error404");
+            }
             WarehouseViewModel warehousesViewModel = new WarehouseViewModel
             {
                 ID = bllWarehouse.ID,
@@ -102,7 +106,7 @@ namespace Front_Front_Warehouse.Controllers
             return Redirect($"/{ID}/View");
         }
 
-        [HttpGet("/{ID}/Delete")]
+        [HttpPost("/{ID}/Delete")]
         public async Task<IActionResult> Delete(int ID)
         {
             await warehouseCollection.DeleteWarehouse(ID);

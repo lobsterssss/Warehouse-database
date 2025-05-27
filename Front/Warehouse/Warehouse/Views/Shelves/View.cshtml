@@ -1,0 +1,54 @@
+﻿@model ShelveViewModel
+
+@{
+}
+
+<article>
+    <H2>@Model.Name</H2>
+    <div>
+        <a asp-controller="Shelves" asp-action="Edit" asp-route-id="@Model.ID">
+            <button>Edit shelve</button>
+        </a>
+        <form asp-controller="Shelves" asp-action="Delete" asp-route-id="@Model.ID">
+            <button type="submit">Delete shelve</button>
+        </form>
+    </div>
+
+</article>
+
+<article>
+    <h4>
+        <th>Products</th>
+    </h4>
+    <table>
+        <thead>
+            <tr>
+                <th>code</th>
+                <th>On shelve</th>
+                <th>name</th>
+                <th>description</th>
+                <th>amount</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @if (Model.Products != null && Model.Products.Any())
+                {
+                @foreach (var product in Model.Products)
+                    {
+                        <tr>
+                            <td>@product.ProductCode</td>
+                            <td>@Model.Name</td>
+                            <td>@product.Name</td>
+                            <td>@product.Description</td>
+                            <td>@product.Amount</td>
+                            <td>hi there</td>
+
+                        </tr>
+                    }
+                }
+        </tbody>
+    </table>
+</article>
+

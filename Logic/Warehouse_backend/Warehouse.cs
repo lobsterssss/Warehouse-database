@@ -38,7 +38,7 @@ namespace Warehouse_backend
                 Postcode = postcode,
                 Street = street,
             };
-            this.WarehouseDal.UpdateWarehouse(dTOWarehouse);
+            await this.WarehouseDal.UpdateWarehouse(dTOWarehouse);
         }
 
         public async Task GetShelves() 

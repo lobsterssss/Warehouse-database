@@ -40,6 +40,7 @@ namespace Warehouse_Dal
                 yield return new DTOShelve
                 {
                     ID = reader.GetInt32("ID"),
+                    Name = reader.GetString("Name"),
                 };
             }
         }
@@ -58,7 +59,7 @@ namespace Warehouse_Dal
                 yield return reader.GetInt32("ID");
             }
         }
-        public async Task DeleteWarehouse(int ID)
+        public async Task DeleteShelve(int ID)
         {
             MySqlCommand sqlcommend = new MySqlCommand(@"DELETE FROM shelves WHERE ID = @ID;");
             sqlcommend.Parameters.AddWithValue("@ID", ID);
@@ -67,12 +68,11 @@ namespace Warehouse_Dal
 
         }
 
-        public async Task UpdateShelve(DTOShelve dTOShelve, int warehouseID)
+        public async Task UpdateShelve(DTOShelve dTOShelve)
         {
-            MySqlCommand sqlcommend = new MySqlCommand(@"Update shelves set Name = @Name, Warehouse_ID = @WarehouseID where ID = @ID");
+            MySqlCommand sqlcommend = new MySqlCommand(@"Update shelves set Name = @Name where ID = @ID");
             sqlcommend.Parameters.AddWithValue("@ID", dTOShelve.ID);
             sqlcommend.Parameters.AddWithValue("@Name", dTOShelve.Name);
-            sqlcommend.Parameters.AddWithValue("@WarehouseID", warehouseID);
 
             using MySqlDataReader reader = await Daldatabase.ReaderQuery(sqlcommend);
 

@@ -19,7 +19,7 @@ namespace Warehouse_Dal
                     ON shelves.ID = products.Shelve_ID
                 inner JOIN product_type 
                     ON products.Product_type_ID = product_type.ID
-                where shelves.ID = 2;");
+                where shelves.ID = @ID;");
             sqlcommend.Parameters.AddWithValue("@ID", ID);
             using MySqlDataReader reader = await Daldatabase.ReaderQuery(sqlcommend);
             while (await reader.ReadAsync())

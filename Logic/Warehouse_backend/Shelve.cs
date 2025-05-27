@@ -22,6 +22,16 @@ namespace Warehouse_backend
         public String Name { get; set; }
         public List<Product> Products { get; set; }
 
+        public async Task EditShelve()
+        {
+            DTOShelve dTOShelve = new DTOShelve()
+            {
+                ID = this.ID,
+                Name = this.Name,
+            };
+            await this.ShelveDal.UpdateShelve(dTOShelve);
+        }
+
         public async Task GetProducts()
         {
             var dTOProducts = await ProductDal.GetShelveProducts(this.ID).ToListAsync();

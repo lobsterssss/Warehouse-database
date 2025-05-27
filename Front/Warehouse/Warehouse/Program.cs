@@ -10,6 +10,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUserDal, UserDal>();
 builder.Services.AddScoped<UserCollection>();
 builder.Services.AddScoped<WarehouseCollection>();
+builder.Services.AddScoped<ShelveCollection>();
 
 
 builder.Services.AddScoped<IWarehouseDal, Warehouse_Dal.WarehouseDal>();

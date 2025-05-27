@@ -11,9 +11,9 @@ namespace Interfaces
     {
         public abstract IAsyncEnumerable<DTOShelve> GetWarehouseShelves(int ID);
         public abstract IAsyncEnumerable<DTOShelve> GetShelve(int ID);
-        public abstract IAsyncEnumerable<DTOShelve> CreateShelve(DTOShelve dTOShelve ,int warehouseID);
-        public abstract IAsyncEnumerable<DTOShelve> UpdateShelve(DTOShelve dTOShelve, int warehouseID);
-        public abstract IAsyncEnumerable<DTOShelve> DeleteShelve(int ID);
+        public abstract IAsyncEnumerable<int> CreateShelve(DTOShelve dTOShelve ,int warehouseID);
+        public abstract Task UpdateShelve(DTOShelve dTOShelve);
+        public abstract Task DeleteShelve(int ID);
 
 
     }

@@ -9,13 +9,13 @@ using Warehouse_Dal;
 
 namespace Warehouse_backend
 {
-    public class Shelve_Collection
+    public class ShelveCollection
     {
         private readonly IShelveDal ShelveDal;
         private readonly IProductDal ProductDal;
 
 
-        public Shelve_Collection(IShelveDal shelveDal, IProductDal productDal)
+        public ShelveCollection(IShelveDal shelveDal, IProductDal productDal)
         {
             this.ShelveDal = shelveDal;
             this.ProductDal = productDal;
@@ -38,14 +38,14 @@ namespace Warehouse_backend
         public async Task<Shelve?> GetShelve(int ID)
         {
             Shelve Shelve = new Shelve(ShelveDal, ProductDal);
-            IAsyncEnumerable<DTOWarehouse> warehouses = ShelveDal.GetShelve(ID);
+            IAsyncEnumerable<DTOShelve> Shelves = ShelveDal.GetShelve(ID);
 
-            await foreach (DTOWarehouse warehouse in warehouses)
+            await foreach (DTOShelve shelve in Shelves)
             {
                 Shelve = new Shelve(ShelveDal, ProductDal)
                 {
-                    ID = warehouse.ID,
-                    Name = warehouse.Name,
+                    ID = shelve.ID,
+                    Name = shelve.Name,
                 };
             }
             if (Shelve.Name == null)
@@ -60,18 +60,18 @@ namespace Warehouse_backend
 
         public async Task<int> CreateShelve(string name, int warehouseID)
         {
-            DTOShelve Warehouse = new DTOShelve()
+            DTOShelve Shelve = new DTOShelve()
             {
                 Name = name,
             };
 
-            int WarehouseID = await ShelveDal.CreateShelve(Warehouse).FirstAsync();
+            int ShelveID = await ShelveDal.CreateShelve(Shelve, warehouseID).FirstAsync();
 
-            return WarehouseID;
+            return ShelveID;
 
         }
 
-        public async Task DeleteWarehouse(int ID)
+        public async Task DeleteShelve(int ID)
         {
             await ShelveDal.DeleteShelve(ID);
         }

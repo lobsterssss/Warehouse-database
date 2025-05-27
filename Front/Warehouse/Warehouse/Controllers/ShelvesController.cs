@@ -7,45 +7,40 @@ using Warehouse_Dal;
 
 namespace Front_Front_Warehouse.Controllers
 {
-    [Route("{WarehouseID}/shelves/")]
-    public class ShelveController : Controller
+    public class ShelvesController : Controller
     {
-        private readonly WarehouseCollection warehouseCollection;
+        private readonly ShelveCollection shelveCollection;
 
-        public List<WarehouseViewModel> warehousesViewModel = new List<WarehouseViewModel>();
+        public List<ShelveViewModel> shelvesViewModel = new List<ShelveViewModel>();
 
-        public ShelveController(WarehouseCollection warehouseCollection)
+        public ShelvesController(ShelveCollection shelveCollection)
         {
-            this.warehouseCollection = warehouseCollection;
+            this.shelveCollection = shelveCollection;
         }
-
-        public async Task<IActionResult> Index(int WarehouseID)
+        [HttpGet("/Warehouse/{warehouseID}/shelves")]
+        public async Task<IActionResult> Index(int warehouseID)
         {
-            warehousesViewModel = await this.warehouseCollection.GetAllWarehouses().Select(warehouse => new WarehouseViewModel
+            shelvesViewModel = await this.shelveCollection.GetAllShelvesFromWarehouse(warehouseID).Select(shelve => new ShelveViewModel
             {
-                ID = warehouse.ID,
-                Name = warehouse.Name,
-                Postcode = warehouse.Postcode,
-                Street = warehouse.Street,
+                ID = shelve.ID,
+                Name = shelve.Name,
             }).ToListAsync();
-            return View(warehousesViewModel);
+            return View(shelvesViewModel);
         }
 
-        [HttpGet("/{ID}/View")]
+        [HttpGet("/[controller]/{ID}")]
         public async Task<IActionResult> View(int ID)
         {
-            Warehouse bllWarehouse = await this.warehouseCollection.GetWarehouse(ID);
-            WarehouseViewModel warehousesViewModel = new WarehouseViewModel
+            Shelve bllShelve = await this.shelveCollection.GetShelve(ID);
+            if (bllShelve == null)
             {
-                ID = bllWarehouse.ID,
-                Name = bllWarehouse.Name,
-                Postcode = bllWarehouse.Postcode,
-                Street = bllWarehouse.Street,
-                Shelves = bllWarehouse.Shelves.Select(bllshelves => new ShelveViewModel
+                return View("Error404");
+            }
+            ShelveViewModel shelveViewModel = new ShelveViewModel
                 {
-                    ID = bllshelves.ID,
-                    Name = bllshelves.Name,
-                    Products = bllshelves.Products.Select(bllproducts => new ProductViewModel()
+                    ID = bllShelve.ID,
+                    Name = bllShelve.Name,
+                    Products = bllShelve.Products.Select(bllproducts => new ProductViewModel()
                     {
                         ID = bllproducts.ID,
                         Name = bllproducts.Name,
@@ -54,57 +49,52 @@ namespace Front_Front_Warehouse.Controllers
                         Amount = bllproducts.Amount,
                         
                     }).ToList(),
-                }).ToList()
             };
-            return View(warehousesViewModel);
+            return View(shelveViewModel);
         }
 
-        [HttpGet("/Create")]
+        [HttpGet("/Warehouse/{warehouseID}/Shelves/Create")]
         public async Task<IActionResult> Create()
         {
-            return View("WarehouseForm");
+            return View("ShelveForm");
         }
 
-        public async Task<IActionResult> CreatePost(string Name )
+        [HttpPost("/Warehouse/{warehouseID}/Shelves/Create")]
+        public async Task<IActionResult> CreatePost(string Name, int warehouseID)
         {
-            int WarehouseID = await this.warehouseCollection.CreateWarehouse(Name);
-            return Redirect($"/{WarehouseID}/View");
+            int ShelveID = await this.shelveCollection.CreateShelve(Name, warehouseID);
+            return Redirect($"/Shelves/{ShelveID}");
         }
 
-
-        [HttpGet("/{ID}/Edit")]
+        [HttpGet("/Warehouse/[controller]/{ID}/Edit")]
         public async Task<IActionResult> Edit(int ID)
         {
-            Warehouse warehouse = await this.warehouseCollection.GetWarehouse(ID);
-            WarehouseViewModel warehousesViewModel = new WarehouseViewModel
+            Shelve shelve = await this.shelveCollection.GetShelve(ID);
+            ShelveViewModel shelveViewModel = new ShelveViewModel
             {
-                ID = warehouse.ID,
-                Name = warehouse.Name,
-                Postcode = warehouse.Postcode,
-                Street = warehouse.Street,
+                ID = shelve.ID,
+                Name = shelve.Name,
             };
-            return View("WarehouseForm",warehousesViewModel);
+            return View("Shelveform", shelveViewModel);
         }
 
-        [HttpPost("/{ID}/Edit")]
-        public async Task<IActionResult> EditPost(int ID, string Name, string Postcode, string Street)
+        [HttpPost("/Warehouse/[controller]/{ID}/Edit")]
+        public async Task<IActionResult> EditPost(int ID, string Name)
         {
-           Warehouse warehouse = new Warehouse(new WarehouseDal(), new ShelveDal(), new ProductDal() ) { 
+            Shelve Shelve = new Shelve(new ShelveDal(), new ProductDal())
+            {
                 ID = ID,
                 Name = Name,
-                Postcode= Postcode,
-                Street = Street,
             };
 
-            await warehouse.EditWarehouse(Name, Postcode, Street);
-            
-            return Redirect($"/{ID}/View");
-        }
+            await Shelve.EditShelve();
 
-        [HttpGet("/{ID}/Delete")]
+            return Redirect($"/Shelves/{ID}");
+        }
+        [HttpPost("/Shelves/{ID}/Delete")]
         public async Task<IActionResult> Delete(int ID)
         {
-            await warehouseCollection.DeleteWarehouse(ID);
+            await shelveCollection.DeleteShelve(ID);
 
             return Redirect("/");
         }

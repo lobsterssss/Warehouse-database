@@ -12,8 +12,11 @@
         <a asp-controller="Warehouse" asp-action="Edit" asp-route-id="@Model.ID">
             <button>Edit Warehouse</button>
         </a>
-        <a asp-controller="Warehouse" asp-action="Delete" asp-route-id="@Model.ID">
-            <button>Delete Warehouse</button>
+        <form asp-controller="Warehouse" asp-action="Delete" asp-route-id="@Model.ID">
+            <button type="submit">Delete shelve</button>
+        </form>
+        <a asp-controller="Shelves" asp-action="Index" asp-route-WarehouseID="@Model.ID">
+            <button>View all shelves</button>
         </a>
     </div>
 
@@ -43,7 +46,13 @@
                     {
                         <tr>
                             <td>@product.ProductCode</td>
-                            <td>@shelf.Name</td>
+                            
+                            <td>
+                                <a asp-controller="Shelves" asp-action="View" asp-route-ID="@shelf.ID">
+                                    @shelf.Name
+                                </a>
+                            </td>
+                           
                             <td>@product.Name</td>
                             <td>@product.Description</td>
                             <td>@product.Amount</td>
