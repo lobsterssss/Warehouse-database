@@ -1,5 +1,6 @@
 ﻿using Front_Warehouse.Models;
 using Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using Warehouse_backend;
@@ -9,13 +10,15 @@ namespace Front_Warehouse.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly Login Login;
+        private readonly Login LoginManager;
 
-        public LoginController(Login login)
+        public LoginController(Login LoginManager)
         {
-            this.Login = login;
+            this.LoginManager = LoginManager;
         }
-        public IActionResult Index()
+
+        [HttpGet("[controller]")]
+        public IActionResult Login()
         {
             return View();
         }
@@ -24,25 +27,21 @@ namespace Front_Warehouse.Controllers
         [BindProperty]
         public UserViewModel user { get; set; }
 
-        [HttpPost("")]
-        public async Task<ActionResult> OnPost()
+        [HttpPost("[controller]")]
+        public async Task<ActionResult> LoginPost()
         {
             if (!ModelState.IsValid)
             {
                 return View("login", user);
             }
-            int? result = await Login.Login_User(user.Name, user.Password);
+            int? result = await LoginManager.Login_User(user.Name, user.Password);
             if (result != null)
             {
-                user = new UserViewModel
-                {
-                    ID = result,
-                    Name = user.Name,
-                };
-                HttpContext.Session.SetString("User", JsonSerializer.Serialize(user));
+
+                HttpContext.Session.SetInt32("UserID", (int)result);
+                _ = HttpContext.Session.Id;
                 return Redirect("/");
             }
-
             return View("login", user);
         }
     }

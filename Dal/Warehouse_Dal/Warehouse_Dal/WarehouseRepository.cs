@@ -12,16 +12,16 @@ using System.Threading.Tasks;
 
 namespace Warehouse_Dal
 {
-    public class WarehouseDal : IWarehouseDal
+    public class WarehouseRepository : IWarehouseRepository
     {
 
-        public async IAsyncEnumerable<DTOWarehouse> GetAllWarehouse() 
+        public async IAsyncEnumerable<WarehouseDTO> GetAllWarehouse() 
         {
             MySqlCommand sqlcommend = new MySqlCommand(@"Select * from warehouses;");
-            using MySqlDataReader reader = await Daldatabase.ReaderQuery(sqlcommend);
+            using MySqlDataReader reader = await DatabaseConnection.ReaderQuery(sqlcommend);
             while (await reader.ReadAsync())
             {
-                yield return new DTOWarehouse
+                yield return new WarehouseDTO
                 {
                     ID = reader.GetInt32("ID"),
                     Name = reader.GetString("Name"),
@@ -33,14 +33,14 @@ namespace Warehouse_Dal
         }
 
 
-        public async IAsyncEnumerable<DTOWarehouse> GetWarehouse(int ID)
+        public async IAsyncEnumerable<WarehouseDTO> GetWarehouse(int ID)
         {
             MySqlCommand sqlcommend = new MySqlCommand(@"Select * from warehouses where ID = @ID;");
             sqlcommend.Parameters.AddWithValue("@ID", ID);
-            using MySqlDataReader reader = await Daldatabase.ReaderQuery(sqlcommend);
+            using MySqlDataReader reader = await DatabaseConnection.ReaderQuery(sqlcommend);
             while (await reader.ReadAsync())
             {
-                yield return new DTOWarehouse
+                yield return new WarehouseDTO
                 {
                     ID = reader.GetInt32("ID"),
                     Name = reader.GetString("Name"),
@@ -50,16 +50,19 @@ namespace Warehouse_Dal
             }
         }
 
-        public async IAsyncEnumerable<int> CreateWarehouse(DTOWarehouse dTOWarehouse)
+        public async IAsyncEnumerable<int> CreateWarehouse(WarehouseDTO dTOWarehouse)
         {
-            MySqlCommand sqlcommend = new MySqlCommand(@"INSERT INTO warehouses (Name, Postcode, Street) VALUES(@Name, @Postcode, @Street);
+            MySqlCommand sqlcommend = new MySqlCommand(@"
+            INSERT INTO warehouses
+            (Name, Postcode, Street)
+            VALUES(@Name, @Postcode, @Street);
             SELECT LAST_INSERT_ID() as 'ID';
             ");
             sqlcommend.Parameters.AddWithValue("@Name", dTOWarehouse.Name);
             sqlcommend.Parameters.AddWithValue("@Postcode", dTOWarehouse.Postcode);
             sqlcommend.Parameters.AddWithValue("@Street", dTOWarehouse.Street);
 
-            using MySqlDataReader reader = await Daldatabase.ReaderQuery(sqlcommend);
+            using MySqlDataReader reader = await DatabaseConnection.ReaderQuery(sqlcommend);
 
             while (await reader.ReadAsync())
             {
@@ -71,19 +74,23 @@ namespace Warehouse_Dal
             MySqlCommand sqlcommend = new MySqlCommand(@"DELETE FROM warehouses WHERE ID = @ID;");
             sqlcommend.Parameters.AddWithValue("@ID", ID);
 
-            await Daldatabase.ExecuteQuery(sqlcommend);
+            await DatabaseConnection.ExecuteQuery(sqlcommend);
 
         }
 
-        public async Task UpdateWarehouse(DTOWarehouse dTOWarehouse)
+        public async Task UpdateWarehouse(WarehouseDTO dTOWarehouse)
         {
-            MySqlCommand sqlcommend = new MySqlCommand(@"Update warehouses set Name = @Name, Postcode = @Postcode, Street = @Street where ID = @ID");
+            MySqlCommand sqlcommend = new MySqlCommand(@"
+            Update warehouses
+            set Name = @Name, Postcode = @Postcode, Street = @Street
+            where ID = @ID"
+            );
             sqlcommend.Parameters.AddWithValue("@ID", dTOWarehouse.ID);
             sqlcommend.Parameters.AddWithValue("@Name", dTOWarehouse.Name);
             sqlcommend.Parameters.AddWithValue("@Postcode", dTOWarehouse.Postcode);
             sqlcommend.Parameters.AddWithValue("@Street", dTOWarehouse.Street);
 
-            using MySqlDataReader reader = await Daldatabase.ReaderQuery(sqlcommend);
+            using MySqlDataReader reader = await DatabaseConnection.ReaderQuery(sqlcommend);
 
         }
 

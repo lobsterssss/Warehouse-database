@@ -1,11 +1,11 @@
 ﻿@page
 @model Front_Warehouse.Models.UserViewModel
 
-@{
-}
+@{}
 
 @using (Html.BeginForm(FormMethod.Post))
 {
+    <h2>Login</h2>
     <label>Email</label>
     @Html.TextBoxFor(m => m.Name)
     @Html.ValidationMessageFor(m => m.Name)

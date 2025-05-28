@@ -1,4 +1,4 @@
-﻿@model ShelveViewModel
+﻿@model WarehouseViewModel
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -7,10 +7,25 @@
 
 @using (Html.BeginForm(FormMethod.Post))
 {
-    <label>Name</label>
-    @Html.TextBoxFor(m => m.Name)
-    @Html.ValidationMessageFor(m => m.Name)
-    <!-- generates: <input name="Name" ...> -->
+    <h2>Warehouse Creation</h2>
+    <div>
+        <label>Name</label>
+        @Html.TextBoxFor(m => m.Name)
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+    <div>
 
-    <button type="submit">Commit</button>
+        <label>Postcode</label>
+        @Html.TextBoxFor(m => m.Postcode)
+        @Html.ValidationMessageFor(m => m.Postcode)
+    </div>
+    <div>
+        <label>Street</label>
+        @Html.TextBoxFor(m => m.Street)
+        @Html.ValidationMessageFor(m => m.Street)
+        <!-- generates: <input name="Name" ...> -->
+    </div>
+    <div>
+        <button type="submit">Commit</button>
+    </div>
 }

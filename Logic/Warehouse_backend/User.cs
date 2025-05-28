@@ -13,10 +13,9 @@ namespace Warehouse_backend
 {
     public class User
     {
-        private string Password;
         public int ID { get; set; }
-        public string Name { get; set; }
-
+        public string? Name { get; set; }
+        public string? Password { get; set; }
         public Role? Role { get; set; }
 
         public bool Login(string password) 

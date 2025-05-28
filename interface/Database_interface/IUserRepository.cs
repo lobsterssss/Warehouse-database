@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Interfaces
 {
-     public interface IUserDal
+     public interface IUserRepository
     {
-        public IAsyncEnumerable<DTOUser> GetAll();
+        public IAsyncEnumerable<UserDTO> GetAll();
 
         public Task GetOne(int id);
         public Task GetWhere(int id, List<string> parameters);

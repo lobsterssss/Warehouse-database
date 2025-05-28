@@ -12,13 +12,13 @@ namespace Warehouse_backend
 {
     public class WarehouseCollection
     {
-        private readonly IWarehouseDal WarehouseDal;
-        private readonly IShelveDal ShelveDal;
-        private readonly IProductDal ProductDal;
+        private readonly IWarehouseRepository WarehouseDal;
+        private readonly IShelveRepository ShelveDal;
+        private readonly IProductRepository ProductDal;
 
 
 
-        public WarehouseCollection(IWarehouseDal warehouseDal, IShelveDal shelveDal, IProductDal productDal )
+        public WarehouseCollection(IWarehouseRepository warehouseDal, IShelveRepository shelveDal, IProductRepository productDal )
         {
             this.WarehouseDal = warehouseDal;
             this.ShelveDal = shelveDal;
@@ -27,9 +27,9 @@ namespace Warehouse_backend
 
         public async IAsyncEnumerable<Warehouse> GetAllWarehouses() 
         {
-            IAsyncEnumerable<DTOWarehouse> warehouses = WarehouseDal.GetAllWarehouse();
+            IAsyncEnumerable<WarehouseDTO> warehouses = WarehouseDal.GetAllWarehouse();
 
-            await foreach (DTOWarehouse warehouse in warehouses)
+            await foreach (WarehouseDTO warehouse in warehouses)
             {
                 yield return new Warehouse(WarehouseDal, ShelveDal, ProductDal)
                 {
@@ -44,9 +44,9 @@ namespace Warehouse_backend
         public async Task<Warehouse?> GetWarehouse(int ID)
         {
             Warehouse Warehouse = new Warehouse(WarehouseDal, ShelveDal, ProductDal);
-            IAsyncEnumerable<DTOWarehouse> warehouses = WarehouseDal.GetWarehouse(ID);
+            IAsyncEnumerable<WarehouseDTO> warehouses = WarehouseDal.GetWarehouse(ID);
 
-            await foreach (DTOWarehouse warehouse in warehouses)
+            await foreach (WarehouseDTO warehouse in warehouses)
             {
                 Warehouse = new Warehouse(WarehouseDal, ShelveDal, ProductDal)
                 {
@@ -70,7 +70,7 @@ namespace Warehouse_backend
 
         public async Task<int> CreateWarehouse(string name, string postcode, string street)
         {
-            DTOWarehouse Warehouse = new DTOWarehouse() 
+            WarehouseDTO Warehouse = new WarehouseDTO() 
             {
                Name = name,
                Postcode = postcode,

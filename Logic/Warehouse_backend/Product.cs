@@ -9,9 +9,9 @@ namespace Warehouse_backend
 {
     public class Product
     {
-        private readonly IProductDal ProductDal;
+        private readonly IProductRepository ProductDal;
 
-        public Product(IProductDal productDal)
+        public Product(IProductRepository productDal)
         {
             this.ProductDal = productDal;
         }

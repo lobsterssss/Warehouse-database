@@ -10,10 +10,10 @@ namespace Warehouse_backend
 {
     public class Shelve
     {
-        private readonly IShelveDal ShelveDal;
-        private readonly IProductDal ProductDal;
+        private readonly IShelveRepository ShelveDal;
+        private readonly IProductRepository ProductDal;
 
-        public Shelve(IShelveDal shelveDal, IProductDal productDal)
+        public Shelve(IShelveRepository shelveDal, IProductRepository productDal)
         {
             this.ShelveDal = shelveDal;
             this.ProductDal = productDal;
@@ -24,7 +24,7 @@ namespace Warehouse_backend
 
         public async Task EditShelve()
         {
-            DTOShelve dTOShelve = new DTOShelve()
+            ShelveDTO dTOShelve = new ShelveDTO()
             {
                 ID = this.ID,
                 Name = this.Name,

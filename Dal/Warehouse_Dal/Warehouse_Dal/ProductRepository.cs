@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Warehouse_Dal
 {
-    public class ProductDal : IProductDal
+    public class ProductRepository : IProductRepository
     {
-        public async IAsyncEnumerable<DTOProduct> GetShelveProducts(int ID)
+        public async IAsyncEnumerable<ProductDTO> GetShelveProducts(int ID)
         {
             MySqlCommand sqlcommend = new MySqlCommand(
                 @"Select products.*, product_type.`Name`, product_type.`Description` from shelves
@@ -21,10 +21,10 @@ namespace Warehouse_Dal
                     ON products.Product_type_ID = product_type.ID
                 where shelves.ID = @ID;");
             sqlcommend.Parameters.AddWithValue("@ID", ID);
-            using MySqlDataReader reader = await Daldatabase.ReaderQuery(sqlcommend);
+            using MySqlDataReader reader = await DatabaseConnection.ReaderQuery(sqlcommend);
             while (await reader.ReadAsync())
             {
-                yield return new DTOProduct
+                yield return new ProductDTO
                 {
                     ID = reader.GetInt32("ID"),
                     Name = reader.GetString("Name"),

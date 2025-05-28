@@ -8,6 +8,11 @@ html {
   }
 }
 
+a {
+    text-decoration: unset;
+    color: black;
+}
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
@@ -37,6 +42,7 @@ main {
 }
 
 footer {
-    position:relative;
-    bottom:0;
+    position: absolute;
+    bottom: 0;
+    width: -webkit-fill-available;
 }

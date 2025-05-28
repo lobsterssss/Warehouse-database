@@ -11,18 +11,18 @@ namespace Warehouse_backend
 {
     public class UserCollection
     {
-        private readonly IUserDal UserDal;
+        private readonly IUserRepository UserDal;
 
-        public UserCollection(IUserDal userDal)
+        public UserCollection(IUserRepository userDal)
         {
             UserDal = userDal;
         }
 
         public async IAsyncEnumerable<User> GetAllUsers() 
         {
-            IAsyncEnumerable<DTOUser> users = UserDal.GetAll();
+            IAsyncEnumerable<UserDTO> users = UserDal.GetAll();
 
-            await foreach (DTOUser user in users)
+            await foreach (UserDTO user in users)
             {
                 yield return new User() 
                 {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Interfaces
 {
-     public interface IDatabaseDal
+     public interface IDatabaseConnection
     {
         public static abstract Task<MySqlDataReader> ReaderQuery(MySqlCommand Query);
 

@@ -4,7 +4,7 @@ using System.Data;
 
 namespace Warehouse_Dal
 {
-    public class Daldatabase
+    public class DatabaseConnection
     {
         private static string connectionString = "Server=127.0.0.1;Port=3306;User ID=root;Password=root;Database=Warehouse;";
 

@@ -9,25 +9,25 @@ using Warehouse_backend;
 
 namespace UnitTestingWarehouseProj.TestClasses
 {
-    public class ShelveTestDal : IShelveDal
+    public class ShelveTestDal : IShelveRepository
     {
-        private List<DTOShelve> shelves = new List<DTOShelve>();
+        private List<ShelveDTO> shelves = new List<ShelveDTO>();
         public ShelveTestDal()
         {
-            shelves.Add(new DTOShelve()
+            shelves.Add(new ShelveDTO()
             {
                 ID = 1,
                 Name = "Shelve 1",
             });
 
-            shelves.Add(new DTOShelve()
+            shelves.Add(new ShelveDTO()
             {
                 ID = 2,
                 Name = "Shelve 2",
             });
         }
 
-        public IAsyncEnumerable<DTOShelve> GetWarehouseShelves(int ID)
+        public IAsyncEnumerable<ShelveDTO> GetWarehouseShelves(int ID)
         {
             return shelves.Where(shelve => shelve.ID == ID).ToAsyncEnumerable();
         }

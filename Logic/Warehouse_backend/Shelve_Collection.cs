@@ -11,11 +11,11 @@ namespace Warehouse_backend
 {
     public class ShelveCollection
     {
-        private readonly IShelveDal ShelveDal;
-        private readonly IProductDal ProductDal;
+        private readonly IShelveRepository ShelveDal;
+        private readonly IProductRepository ProductDal;
 
 
-        public ShelveCollection(IShelveDal shelveDal, IProductDal productDal)
+        public ShelveCollection(IShelveRepository shelveDal, IProductRepository productDal)
         {
             this.ShelveDal = shelveDal;
             this.ProductDal = productDal;
@@ -23,9 +23,9 @@ namespace Warehouse_backend
 
         public async IAsyncEnumerable<Shelve> GetAllShelvesFromWarehouse(int warehouseID)
         {
-            IAsyncEnumerable<DTOShelve> shelves = ShelveDal.GetWarehouseShelves(warehouseID);
+            IAsyncEnumerable<ShelveDTO> shelves = ShelveDal.GetWarehouseShelves(warehouseID);
 
-            await foreach (DTOShelve shelve in shelves)
+            await foreach (ShelveDTO shelve in shelves)
             {
                 yield return new Shelve(ShelveDal, ProductDal)
                 {
@@ -38,9 +38,9 @@ namespace Warehouse_backend
         public async Task<Shelve?> GetShelve(int ID)
         {
             Shelve Shelve = new Shelve(ShelveDal, ProductDal);
-            IAsyncEnumerable<DTOShelve> Shelves = ShelveDal.GetShelve(ID);
+            IAsyncEnumerable<ShelveDTO> Shelves = ShelveDal.GetShelve(ID);
 
-            await foreach (DTOShelve shelve in Shelves)
+            await foreach (ShelveDTO shelve in Shelves)
             {
                 Shelve = new Shelve(ShelveDal, ProductDal)
                 {
@@ -60,7 +60,7 @@ namespace Warehouse_backend
 
         public async Task<int> CreateShelve(string name, int warehouseID)
         {
-            DTOShelve Shelve = new DTOShelve()
+            ShelveDTO Shelve = new ShelveDTO()
             {
                 Name = name,
             };

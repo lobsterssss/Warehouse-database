@@ -7,10 +7,14 @@
 
 @using (Html.BeginForm(FormMethod.Post))
 {
-    <label>Name</label>
-    @Html.TextBoxFor(m => m.Name)
-    @Html.ValidationMessageFor(m => m.Name)
-    <!-- generates: <input name="Name" ...> -->
-
-    <button type="submit">Commit</button>
+    <h2>Shelve Creation</h2>
+    <div>
+        <label>Name</label>
+        @Html.TextBoxFor(m => m.Name)
+        @Html.ValidationMessageFor(m => m.Name)
+        <!-- generates: <input name="Name" ...> -->
+    </div>
+    <div>
+        <button type="submit">Commit</button>
+    </div>
 }

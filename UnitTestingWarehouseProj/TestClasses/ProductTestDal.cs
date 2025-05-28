@@ -11,19 +11,19 @@ using Warehouse_Dal;
 
 namespace UnitTestingWarehouseProj.TestClasses
 {
-    public class ProductTestDal : IProductDal
+    public class ProductTestDal : IProductRepository
     {
-        private List<DTOProduct> Products = new List<DTOProduct>();
+        private List<ProductDTO> Products = new List<ProductDTO>();
         public ProductTestDal() 
         {
-            Products.Add(new DTOProduct()
+            Products.Add(new ProductDTO()
             {
                 ID = 1,
                 Name = "beans",
                 ProductCode = "G23XA",
 
             });
-            Products.Add(new DTOProduct()
+            Products.Add(new ProductDTO()
             {
                 ID = 2,
                 Name = "not Beans",
@@ -31,7 +31,7 @@ namespace UnitTestingWarehouseProj.TestClasses
             });
 
         }
-        public IAsyncEnumerable<DTOProduct> GetShelveProducts(int ID)
+        public IAsyncEnumerable<ProductDTO> GetShelveProducts(int ID)
         {
             return Products.Where(product => product.ID == ID).ToAsyncEnumerable();
         }

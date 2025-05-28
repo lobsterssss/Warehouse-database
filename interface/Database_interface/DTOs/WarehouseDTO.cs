@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Interfaces.DTOs
 {
-    public class DTOWarehouse
+    public class WarehouseDTO
     {
         public int ID { get; set; }
         public string Name { get; set; }
         public string Postcode { get; set; }
         public string Street { get; set; }
-        public List<DTOShelve> Shelves { get; set; }
+        public List<ShelveDTO> Shelves { get; set; }
 
     }
 }

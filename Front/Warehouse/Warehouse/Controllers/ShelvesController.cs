@@ -81,7 +81,7 @@ namespace Front_Front_Warehouse.Controllers
         [HttpPost("/Warehouse/[controller]/{ID}/Edit")]
         public async Task<IActionResult> EditPost(int ID, string Name)
         {
-            Shelve Shelve = new Shelve(new ShelveDal(), new ProductDal())
+            Shelve Shelve = new Shelve(new ShelveRepository(), new ProductRepository())
             {
                 ID = ID,
                 Name = Name,

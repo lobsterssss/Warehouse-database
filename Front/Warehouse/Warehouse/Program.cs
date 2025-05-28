@@ -1,21 +1,25 @@
+using Front_Warehouse.MiddelWare;
 using Interfaces;
 using Warehouse_backend;
 using Warehouse_Dal;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<IUserDal, UserDal>();
 builder.Services.AddScoped<UserCollection>();
 builder.Services.AddScoped<WarehouseCollection>();
 builder.Services.AddScoped<ShelveCollection>();
+builder.Services.AddScoped<Login>();
 
-
-builder.Services.AddScoped<IWarehouseDal, Warehouse_Dal.WarehouseDal>();
-builder.Services.AddScoped<IShelveDal, ShelveDal>();
-builder.Services.AddScoped<IProductDal, ProductDal>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ILoginRepository, LoginRepository>();
+builder.Services.AddScoped<IWarehouseRepository, Warehouse_Dal.WarehouseRepository>();
+builder.Services.AddScoped<IShelveRepository, ShelveRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 builder.Services.AddDistributedMemoryCache();
 
@@ -37,13 +41,15 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+//app.UseAuthMiddleware();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseSession();
-
+app.UseMiddleware<AuthMiddleWare>();
 app.UseAuthorization();
 
 app.MapControllerRoute(

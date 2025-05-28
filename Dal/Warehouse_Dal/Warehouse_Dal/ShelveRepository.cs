@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Warehouse_Dal
 {
-    public class ShelveDal : IShelveDal
+    public class ShelveRepository : IShelveRepository
     {
-        public async IAsyncEnumerable<DTOShelve> GetWarehouseShelves(int ID)
+        public async IAsyncEnumerable<ShelveDTO> GetWarehouseShelves(int ID)
         {
             MySqlCommand sqlcommend = new MySqlCommand(
                 @"Select shelves.* from warehouses
@@ -20,39 +20,41 @@ namespace Warehouse_Dal
                 WHERE warehouses.ID = @ID"
             );
             sqlcommend.Parameters.AddWithValue("@ID", ID);
-            using MySqlDataReader reader = await Daldatabase.ReaderQuery(sqlcommend);
+            using MySqlDataReader reader = await DatabaseConnection.ReaderQuery(sqlcommend);
             while (await reader.ReadAsync())
             {
-                yield return new DTOShelve
+                yield return new ShelveDTO
                 {
                     ID = reader.GetInt32("ID"),
                     Name = reader.GetString("Name"),
                 };
             }
         }
-        public async IAsyncEnumerable<DTOShelve> GetShelve(int ID)
+        public async IAsyncEnumerable<ShelveDTO> GetShelve(int ID)
         {
             MySqlCommand sqlcommend = new MySqlCommand(@"Select * from shelves where ID = @ID;");
             sqlcommend.Parameters.AddWithValue("@ID", ID);
-            using MySqlDataReader reader = await Daldatabase.ReaderQuery(sqlcommend);
+            using MySqlDataReader reader = await DatabaseConnection.ReaderQuery(sqlcommend);
             while (await reader.ReadAsync())
             {
-                yield return new DTOShelve
+                yield return new ShelveDTO
                 {
                     ID = reader.GetInt32("ID"),
                     Name = reader.GetString("Name"),
                 };
             }
         }
-        public async IAsyncEnumerable<int> CreateShelve(DTOShelve dTOShelve, int warehouseID)
+        public async IAsyncEnumerable<int> CreateShelve(ShelveDTO dTOShelve, int warehouseID)
         {
-            MySqlCommand sqlcommend = new MySqlCommand(@"INSERT INTO shelves (Name, Warehouse_ID) VALUES(@Name, @WarehouseID);
+            MySqlCommand sqlcommend = new MySqlCommand(@"INSERT INTO shelves
+            (Name, Warehouse_ID) 
+            VALUES(@Name, @WarehouseID);
             SELECT LAST_INSERT_ID() as 'ID';
             ");
             sqlcommend.Parameters.AddWithValue("@Name", dTOShelve.Name);
             sqlcommend.Parameters.AddWithValue("@WarehouseID", warehouseID);
 
-            using MySqlDataReader reader = await Daldatabase.ReaderQuery(sqlcommend);
+            using MySqlDataReader reader = await DatabaseConnection.ReaderQuery(sqlcommend);
 
             while (await reader.ReadAsync())
             {
@@ -64,17 +66,17 @@ namespace Warehouse_Dal
             MySqlCommand sqlcommend = new MySqlCommand(@"DELETE FROM shelves WHERE ID = @ID;");
             sqlcommend.Parameters.AddWithValue("@ID", ID);
 
-            await Daldatabase.ExecuteQuery(sqlcommend);
+            await DatabaseConnection.ExecuteQuery(sqlcommend);
 
         }
 
-        public async Task UpdateShelve(DTOShelve dTOShelve)
+        public async Task UpdateShelve(ShelveDTO dTOShelve)
         {
             MySqlCommand sqlcommend = new MySqlCommand(@"Update shelves set Name = @Name where ID = @ID");
             sqlcommend.Parameters.AddWithValue("@ID", dTOShelve.ID);
             sqlcommend.Parameters.AddWithValue("@Name", dTOShelve.Name);
 
-            using MySqlDataReader reader = await Daldatabase.ReaderQuery(sqlcommend);
+            using MySqlDataReader reader = await DatabaseConnection.ReaderQuery(sqlcommend);
 
         }
     }

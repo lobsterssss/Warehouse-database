@@ -11,12 +11,12 @@ namespace Warehouse_backend
 {
     public class Warehouse
     {
-        private readonly IWarehouseDal WarehouseDal;
-        private readonly IShelveDal ShelveDal;
-        private readonly IProductDal ProductDal;
+        private readonly IWarehouseRepository WarehouseDal;
+        private readonly IShelveRepository ShelveDal;
+        private readonly IProductRepository ProductDal;
 
 
-        public Warehouse(IWarehouseDal warehouseDal, IShelveDal shelveDal, IProductDal productDal)
+        public Warehouse(IWarehouseRepository warehouseDal, IShelveRepository shelveDal, IProductRepository productDal)
         {
             this.WarehouseDal = warehouseDal;
             this.ShelveDal = shelveDal;
@@ -31,7 +31,7 @@ namespace Warehouse_backend
 
         public async Task EditWarehouse(string name, string postcode, string street) 
         {
-            DTOWarehouse dTOWarehouse = new DTOWarehouse()
+            WarehouseDTO dTOWarehouse = new WarehouseDTO()
             {
                 ID = this.ID,
                 Name = name,

@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace UnitTestingWarehouseProj.TestClasses
 {
-    public class WarehouseTestDal : IWarehouseDal
+    public class WarehouseTestDal : IWarehouseRepository
     {
-        private List<DTOWarehouse> warehouses = new List<DTOWarehouse>();
+        private List<WarehouseDTO> warehouses = new List<WarehouseDTO>();
         public WarehouseTestDal() 
         {
-            warehouses.Add(new DTOWarehouse()
+            warehouses.Add(new WarehouseDTO()
             {
                 ID = 1,
                 Name = "warehouse 1",
@@ -22,7 +22,7 @@ namespace UnitTestingWarehouseProj.TestClasses
                 Street = "street 1",
             });
 
-            warehouses.Add(new DTOWarehouse()
+            warehouses.Add(new WarehouseDTO()
             {
                 ID = 2,
                 Name = "warehouse 2",
@@ -32,7 +32,7 @@ namespace UnitTestingWarehouseProj.TestClasses
         }
 
 
-        public IAsyncEnumerable<int> CreateWarehouse(DTOWarehouse dTOWarehouse)
+        public IAsyncEnumerable<int> CreateWarehouse(WarehouseDTO dTOWarehouse)
         {
             warehouses.Add(dTOWarehouse);
             dTOWarehouse.ID = warehouses.Count();
@@ -45,18 +45,18 @@ namespace UnitTestingWarehouseProj.TestClasses
             throw new NotImplementedException();
         }
 
-        public IAsyncEnumerable<DTOWarehouse> GetAllWarehouse()
+        public IAsyncEnumerable<WarehouseDTO> GetAllWarehouse()
         {
 
             return warehouses.ToAsyncEnumerable();
         }
 
-        public IAsyncEnumerable<DTOWarehouse> GetWarehouse(int ID)
+        public IAsyncEnumerable<WarehouseDTO> GetWarehouse(int ID)
         {
             return warehouses.Where(warehouse => warehouse.ID == ID).ToAsyncEnumerable();
         }
 
-        public Task UpdateWarehouse(DTOWarehouse dTOWarehouse)
+        public Task UpdateWarehouse(WarehouseDTO dTOWarehouse)
         {
             throw new NotImplementedException();
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Interfaces.DTOs
 {
-    public class DTOProduct
+    public class ProductDTO
     {
         public int? ID { get; set; }
         public string Name { get; set; }

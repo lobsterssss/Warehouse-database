@@ -94,7 +94,7 @@ namespace Front_Front_Warehouse.Controllers
         [HttpPost("/{ID}/Edit")]
         public async Task<IActionResult> EditPost(int ID, string Name, string Postcode, string Street)
         {
-           Warehouse warehouse = new Warehouse(new WarehouseDal(), new ShelveDal(), new ProductDal() ) { 
+           Warehouse warehouse = new Warehouse(new WarehouseRepository(), new ShelveRepository(), new ProductRepository() ) { 
                 ID = ID,
                 Name = Name,
                 Postcode= Postcode,

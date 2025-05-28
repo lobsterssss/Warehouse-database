@@ -10,9 +10,9 @@ namespace Warehouse_backend
 {
     public class Login
     {
-        private readonly ILoginDal LoginDal;
+        private readonly ILoginRepository LoginDal;
 
-        public Login(ILoginDal LoginDal)
+        public Login(ILoginRepository LoginDal)
         {
             this.LoginDal = LoginDal;
         }
@@ -20,14 +20,15 @@ namespace Warehouse_backend
         public async Task<int?> Login_User(string Name, string password)
         {
             User User = new User();
-            IAsyncEnumerable<DTOUser> users = LoginDal.LoginRequest(Name);
+            IAsyncEnumerable<UserDTO> users = LoginDal.LoginRequest(Name);
 
-            await foreach (DTOUser user in users)
+            await foreach (UserDTO user in users)
             {
                 User = new User
                 {
                     ID = User.ID,
                     Name = Name,
+                    Password = user.Passcode
                     //Role = user.Role_ID,
                 };
             }

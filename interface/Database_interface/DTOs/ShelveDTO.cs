@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Interfaces.DTOs
 {
-    public class DTOShelve
+    public class ShelveDTO
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public List<DTOProduct> Products { get; set; }
+        public List<ProductDTO> Products { get; set; }
 
     }
 }

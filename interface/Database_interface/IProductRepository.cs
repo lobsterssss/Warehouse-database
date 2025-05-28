@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace Interfaces
 {
-    public interface ILoginDal
+     public interface IProductRepository
     {
-        public IAsyncEnumerable<DTOUser> LoginRequest(string Name);
+        public abstract IAsyncEnumerable<ProductDTO> GetShelveProducts(int ID);
+
+
     }
 }

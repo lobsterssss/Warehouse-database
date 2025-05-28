@@ -11,15 +11,15 @@ using Interfaces.DTOs;
 
 namespace Warehouse_Dal
 {
-    public class UserDal : IUserDal
+    public class UserRepository : IUserRepository
     {
-        public async IAsyncEnumerable<DTOUser> GetAll() 
+        public async IAsyncEnumerable<UserDTO> GetAll() 
         {
             MySqlCommand sqlcommend = new MySqlCommand(@"Select * from users;");
-            using MySqlDataReader reader = await Daldatabase.ReaderQuery(sqlcommend);
+            using MySqlDataReader reader = await DatabaseConnection.ReaderQuery(sqlcommend);
             while (await reader.ReadAsync())
             {
-                yield return new DTOUser 
+                yield return new UserDTO 
                 {
                     ID = reader.GetInt32("ID"),
                     Name = reader.GetString("Name"),
