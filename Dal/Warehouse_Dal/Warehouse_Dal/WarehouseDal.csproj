@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\interface\Database_interface\Interfaces.csproj" />
+    <ProjectReference Include="..\..\..\interface\Database_interface\InterfacesDal.csproj" />
   </ItemGroup>
 
 </Project>

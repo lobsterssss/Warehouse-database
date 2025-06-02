@@ -1,4 +1,4 @@
-﻿using Interfaces.DTOs;
+﻿using InterfacesDal.DTOs;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 
-namespace Warehouse_backend
+namespace WarehouseBLL
 {
     public class User
     {

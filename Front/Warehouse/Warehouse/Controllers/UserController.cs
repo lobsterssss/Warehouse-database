@@ -1,12 +1,12 @@
-﻿using Interfaces;
-using Interfaces.DTOs;
+﻿using InterfacesDal;
+using InterfacesDal.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Front_Warehouse.Models;
-using Warehouse_backend;
+using WarehouseBLL;
 using Warehouse_Dal;
 
 namespace Front_Warehouse.Controllers

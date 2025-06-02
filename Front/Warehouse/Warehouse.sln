@@ -5,11 +5,11 @@ VisualStudioVersion = 17.14.35806.103
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Front_Warehouse", "Warehouse\Front_Warehouse.csproj", "{72E0160A-3601-4E75-BBA1-DB7F338CFA51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warehouse_backend", "..\..\Logic\Warehouse_backend\Warehouse_backend.csproj", "{A392F38C-D2DB-4B2C-884D-F5758FD1F7C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseBLL", "..\..\Logic\Warehouse_backend\WarehouseBLL.csproj", "{A392F38C-D2DB-4B2C-884D-F5758FD1F7C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warehouse_Dal", "..\..\Dal\Warehouse_Dal\Warehouse_Dal\Warehouse_Dal.csproj", "{D200FA4B-7728-EA6C-17E8-DB01CD0AF9BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseDal", "..\..\Dal\Warehouse_Dal\Warehouse_Dal\WarehouseDal.csproj", "{D200FA4B-7728-EA6C-17E8-DB01CD0AF9BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "..\..\interface\Database_interface\Interfaces.csproj", "{E0CE2476-D160-424A-9602-C67F91D15543}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfacesDal", "..\..\interface\Database_interface\InterfacesDal.csproj", "{E0CE2476-D160-424A-9602-C67F91D15543}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestingWarehouseProj", "..\..\UnitTestingWarehouseProj\UnitTestingWarehouseProj.csproj", "{7881E81B-EAAA-4C07-A253-A37123DC9BF0}"
 EndProject

@@ -1,12 +1,12 @@
-﻿using Interfaces;
-using Interfaces.DTOs;
+﻿using InterfacesDal;
+using InterfacesDal.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Warehouse_backend
+namespace WarehouseBLL
 {
     public class Login
     {

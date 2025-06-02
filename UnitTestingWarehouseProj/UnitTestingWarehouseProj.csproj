@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\interface\Database_interface\Interfaces.csproj" />
-    <ProjectReference Include="..\Logic\Warehouse_backend\Warehouse_backend.csproj" />
+    <ProjectReference Include="..\interface\Database_interface\InterfacesDal.csproj" />
+    <ProjectReference Include="..\Logic\Warehouse_backend\WarehouseBLL.csproj" />
   </ItemGroup>
 
   <ItemGroup>

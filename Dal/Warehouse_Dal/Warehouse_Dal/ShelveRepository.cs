@@ -1,5 +1,5 @@
-﻿using Interfaces;
-using Interfaces.DTOs;
+﻿using InterfacesDal;
+using InterfacesDal.DTOs;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;

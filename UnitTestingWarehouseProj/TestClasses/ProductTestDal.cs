@@ -1,12 +1,12 @@
-﻿using Interfaces;
-using Interfaces.DTOs;
+﻿using InterfacesDal;
+using InterfacesDal.DTOs;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Warehouse_backend;
+using WarehouseBLL;
 using Warehouse_Dal;
 
 namespace UnitTestingWarehouseProj.TestClasses

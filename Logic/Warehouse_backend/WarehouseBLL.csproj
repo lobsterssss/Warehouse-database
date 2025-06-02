@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Dal\Warehouse_Dal\Warehouse_Dal\Warehouse_Dal.csproj" />
-    <ProjectReference Include="..\..\interface\Database_interface\Interfaces.csproj" />
+    <ProjectReference Include="..\..\Dal\Warehouse_Dal\Warehouse_Dal\WarehouseDal.csproj" />
+    <ProjectReference Include="..\..\interface\Database_interface\InterfacesDal.csproj" />
   </ItemGroup>
 
 </Project>

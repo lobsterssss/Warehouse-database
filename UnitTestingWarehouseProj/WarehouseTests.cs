@@ -1,7 +1,7 @@
-﻿using Interfaces.DTOs;
+﻿using InterfacesDal.DTOs;
 using System.Threading.Tasks;
 using UnitTestingWarehouseProj.TestClasses;
-using Warehouse_backend;
+using WarehouseBLL;
 
 namespace UnitTestingWarehouseProj
 {
@@ -11,7 +11,7 @@ namespace UnitTestingWarehouseProj
         [TestMethod]
         public async Task GetAllWarehouses_NoTestData_ReturnsAllWarehouses()
         {
-           WarehouseCollection warehouseCollection = new WarehouseCollection(new WarehouseTestDal(), new ShelveTestDal(), new ProductTestDal());
+            WarehouseCollection warehouseCollection = new WarehouseCollection(new WarehouseTestDal(), new ShelveTestDal(), new ProductTestDal());
 
             List<Warehouse> warehouses = await warehouseCollection.GetAllWarehouses().ToListAsync();
 

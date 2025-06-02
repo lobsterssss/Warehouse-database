@@ -1,6 +1,6 @@
 using Front_Warehouse.MiddelWare;
-using Interfaces;
-using Warehouse_backend;
+using InterfacesDal;
+using WarehouseBLL;
 using Warehouse_Dal;
 
 

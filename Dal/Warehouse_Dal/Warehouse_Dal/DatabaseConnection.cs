@@ -1,4 +1,4 @@
-﻿using Interfaces;
+﻿using InterfacesDal;
 using MySqlConnector;
 using System.Data;
 

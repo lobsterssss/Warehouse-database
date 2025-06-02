@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 
-namespace Interfaces.DTOs
+namespace InterfacesDal.DTOs
 {
     public class UserDTO
     {

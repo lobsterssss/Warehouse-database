@@ -1,5 +1,5 @@
-﻿using Interfaces;
-using Interfaces.DTOs;
+﻿using InterfacesDal;
+using InterfacesDal.DTOs;
 using System;
 using System.Data;
 using System.Reflection.PortableExecutable;
@@ -8,7 +8,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Warehouse_Dal;
 [assembly: InternalsVisibleTo("UnitTestingWarehouseProj")]
-namespace Warehouse_backend
+namespace WarehouseBLL
 {
     public class WarehouseCollection
     {

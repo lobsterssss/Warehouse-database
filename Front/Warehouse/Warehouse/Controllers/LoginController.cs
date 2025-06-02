@@ -1,9 +1,9 @@
 ﻿using Front_Warehouse.Models;
-using Interfaces;
+using InterfacesDal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
-using Warehouse_backend;
+using WarehouseBLL;
 using Warehouse_Dal;
 
 namespace Front_Warehouse.Controllers

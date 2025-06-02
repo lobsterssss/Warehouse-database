@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using Warehouse_backend;
+using WarehouseBLL;
 
 namespace Front_Warehouse.Models
 {

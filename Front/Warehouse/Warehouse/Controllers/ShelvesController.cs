@@ -1,7 +1,7 @@
-﻿using Interfaces;
+﻿using InterfacesDal;
 using Microsoft.AspNetCore.Mvc;
 using Front_Warehouse.Models;
-using Warehouse_backend;
+using WarehouseBLL;
 using System.Threading.Tasks;
 using Warehouse_Dal;
 
