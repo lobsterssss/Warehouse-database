@@ -17,7 +17,20 @@ namespace Warehouse_Dal
 
         public async IAsyncEnumerable<WarehouseDTO> GetAllWarehouse() 
         {
-            MySqlCommand sqlcommend = new MySqlCommand(@"Select * from warehouses;");
+            MySqlCommand sqlcommend = new MySqlCommand(@"
+            SELECT warehouses.*
+            FROM warehouses
+            WHERE EXISTS (
+                SELECT *
+                FROM users
+                INNER JOIN roles ON users.Role_ID = roles.ID
+                WHERE users.ID = 1 AND roles.Name = 'Admin'
+            )
+            OR warehouses.ID IN (
+                SELECT user_warehouses.Warehouse_ID
+                FROM user_warehouses
+                WHERE user_warehouses.User_ID = 1
+);");
             using MySqlDataReader reader = await DatabaseConnection.ReaderQuery(sqlcommend);
             while (await reader.ReadAsync())
             {
@@ -29,7 +42,6 @@ namespace Warehouse_Dal
                     Street = reader.GetString("Street"),
                 };
             }
-
         }
 
 

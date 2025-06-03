@@ -37,9 +37,7 @@ namespace Front_Warehouse.Controllers
             int? result = await LoginManager.Login_User(user.Name, user.Password);
             if (result != null)
             {
-
                 HttpContext.Session.SetInt32("UserID", (int)result);
-                _ = HttpContext.Session.Id;
                 return Redirect("/");
             }
             return View("login", user);
