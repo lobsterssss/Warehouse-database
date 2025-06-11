@@ -2,6 +2,7 @@ using Front_Warehouse.MiddelWare;
 using InterfacesDal;
 using WarehouseBLL;
 using Warehouse_Dal;
+using WarehouseDal;
 
 
 
@@ -12,9 +13,12 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<UserCollection>();
 builder.Services.AddScoped<WarehouseCollection>();
+builder.Services.AddScoped<StoreCollection>();
+
 builder.Services.AddScoped<ShelveCollection>();
 builder.Services.AddScoped<Login>();
 
+builder.Services.AddScoped<IStoreRepository, StoreRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
 builder.Services.AddScoped<IWarehouseRepository, WarehouseRepository>();

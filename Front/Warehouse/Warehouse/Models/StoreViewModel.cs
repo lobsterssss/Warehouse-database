@@ -1,10 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
-using WarehouseBLL;
+﻿using Front_Warehouse.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Front_Warehouse.Models
 {
-    public class WarehouseViewModel
+    public class StoreViewModel
     {
         public int ID { get; set; }
         [Required]
@@ -13,6 +12,6 @@ namespace Front_Warehouse.Models
         public String Postcode { get; set; }
         [Required]
         public String Street { get; set; }
-        public List<ShelveViewModel> Shelves { get; set; }
+        //public 
     }
 }

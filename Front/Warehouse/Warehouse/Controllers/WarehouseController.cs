@@ -21,8 +21,8 @@ namespace Front_Warehouse.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //int userID = (int)HttpContext.Session.GetInt32("UserID");
-            warehousesViewModel = await this.warehouseCollection.GetAllWarehouses(1).Select(warehouse => new WarehouseViewModel
+            int userID = (int)HttpContext.Session.GetInt32("UserID");
+            warehousesViewModel = await this.warehouseCollection.GetAllWarehouses(userID).Select(warehouse => new WarehouseViewModel
             {
                 ID = warehouse.ID,
                 Name = warehouse.Name,

@@ -72,7 +72,7 @@ namespace Warehouse_Dal
 
         public async Task UpdateShelve(ShelveDTO dTOShelve, int warehouseID)
         {
-            MySqlCommand sqlcommend = new MySqlCommand(@"Update shelves set Name = @Name where ID = @ID");
+            MySqlCommand sqlcommend = new MySqlCommand(@"Update shelves set Name = @Name, Warehouse_ID = @WarehouseID where ID = @ID");
             sqlcommend.Parameters.AddWithValue("@ID", dTOShelve.ID);
             sqlcommend.Parameters.AddWithValue("@Name", dTOShelve.Name);
             sqlcommend.Parameters.AddWithValue("@WarehouseID", warehouseID);
