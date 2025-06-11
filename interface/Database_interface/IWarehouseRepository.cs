@@ -9,15 +9,15 @@ namespace InterfacesDal
 {
      public interface IWarehouseRepository
     {
-        public IAsyncEnumerable<WarehouseDTO> GetAllWarehouse();
+        public IAsyncEnumerable<WarehouseDTO> GetAllWarehouse(int userId);
 
-        public IAsyncEnumerable<WarehouseDTO> GetWarehouse(int ID);
+        public IAsyncEnumerable<WarehouseDTO> GetWarehouse(int iD);
 
-        public IAsyncEnumerable<int> CreateWarehouse(WarehouseDTO dTOWarehouse);
+        public IAsyncEnumerable<int> CreateWarehouse(WarehouseDTO warehouseDTO);
 
         public Task DeleteWarehouse(int ID);
 
-        public Task UpdateWarehouse(WarehouseDTO dTOWarehouse);
+        public Task UpdateWarehouse(WarehouseDTO warehouseDTO);
 
     }
 }

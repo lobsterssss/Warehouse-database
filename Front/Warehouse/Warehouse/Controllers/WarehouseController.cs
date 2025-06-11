@@ -5,7 +5,7 @@ using WarehouseBLL;
 using System.Threading.Tasks;
 using Warehouse_Dal;
 
-namespace Front_Front_Warehouse.Controllers
+namespace Front_Warehouse.Controllers
 {
     [Route("/")]
     public class WarehouseController : Controller
@@ -21,7 +21,8 @@ namespace Front_Front_Warehouse.Controllers
 
         public async Task<IActionResult> Index()
         {
-            warehousesViewModel = await this.warehouseCollection.GetAllWarehouses().Select(warehouse => new WarehouseViewModel
+            //int userID = (int)HttpContext.Session.GetInt32("UserID");
+            warehousesViewModel = await this.warehouseCollection.GetAllWarehouses(1).Select(warehouse => new WarehouseViewModel
             {
                 ID = warehouse.ID,
                 Name = warehouse.Name,
@@ -34,10 +35,11 @@ namespace Front_Front_Warehouse.Controllers
         [HttpGet("/{ID}/View")]
         public async Task<IActionResult> View(int ID)
         {
+            int userID = (int)HttpContext.Session.GetInt32("UserID");
             Warehouse bllWarehouse = await this.warehouseCollection.GetWarehouse(ID);
             if (bllWarehouse == null) 
             {
-                return View("Error404");
+                return Redirect("Error/404");
             }
             WarehouseViewModel warehousesViewModel = new WarehouseViewModel
             {
@@ -72,6 +74,7 @@ namespace Front_Front_Warehouse.Controllers
         [HttpPost("/Create")]
         public async Task<IActionResult> CreatePost(string Name, string Postcode, string Street)
         {
+            int userID = (int)HttpContext.Session.GetInt32("UserID");
             int WarehouseID = await this.warehouseCollection.CreateWarehouse(Name, Postcode, Street);
             return Redirect($"/{WarehouseID}/View");
         }
@@ -80,6 +83,7 @@ namespace Front_Front_Warehouse.Controllers
         [HttpGet("/{ID}/Edit")]
         public async Task<IActionResult> Edit(int ID)
         {
+            int userID = (int)HttpContext.Session.GetInt32("UserID");
             Warehouse warehouse = await this.warehouseCollection.GetWarehouse(ID);
             WarehouseViewModel warehousesViewModel = new WarehouseViewModel
             {

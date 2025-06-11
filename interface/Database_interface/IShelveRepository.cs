@@ -9,11 +9,11 @@ namespace InterfacesDal
 {
      public interface IShelveRepository
     {
-        public abstract IAsyncEnumerable<ShelveDTO> GetWarehouseShelves(int ID);
-        public abstract IAsyncEnumerable<ShelveDTO> GetShelve(int ID);
-        public abstract IAsyncEnumerable<int> CreateShelve(ShelveDTO dTOShelve ,int warehouseID);
-        public abstract Task UpdateShelve(ShelveDTO dTOShelve);
-        public abstract Task DeleteShelve(int ID);
+        public abstract IAsyncEnumerable<ShelveDTO> GetWarehouseShelves(int id);
+        public abstract IAsyncEnumerable<ShelveDTO> GetShelve(int id);
+        public abstract IAsyncEnumerable<int> CreateShelve(ShelveDTO dTOShelve ,int warehouseId);
+        public abstract Task UpdateShelve(ShelveDTO dTOShelve, int warehouseId);
+        public abstract Task DeleteShelve(int id);
 
 
     }

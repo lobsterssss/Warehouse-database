@@ -26,7 +26,7 @@ namespace WarehouseBLL
             {
                 User = new User
                 {
-                    ID = User.ID,
+                    ID = user.ID,
                     Name = Name,
                     Password = user.Passcode
                     //Role = user.Role_ID,

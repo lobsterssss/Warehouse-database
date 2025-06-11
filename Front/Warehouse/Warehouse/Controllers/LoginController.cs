@@ -40,7 +40,15 @@ namespace Front_Warehouse.Controllers
                 HttpContext.Session.SetInt32("UserID", (int)result);
                 return Redirect("/");
             }
+            ModelState.AddModelError(string.Empty, "Wrong username or password.");
             return View("login", user);
+        }
+
+        [HttpGet("[controller]/Logout")]
+        public ActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return Redirect("/");
         }
     }
 }

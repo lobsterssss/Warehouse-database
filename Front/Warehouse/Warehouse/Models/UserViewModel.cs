@@ -9,12 +9,14 @@ namespace Front_Warehouse.Models
     {
         public int? ID { get; set; }
         [Required]
+        //[MinLength(4)]
+        [MaxLength(20)]
         public string Name { get; set; }
         [Required]
+        [MinLength(4)]
+        [MaxLength(20)]
+        [RegularExpression(@"^[a-zA-Z0-9]+$")]
         public string? Password { get; set; }
 
-        //public Role Role { get; private set; }
-
-        //private List<Warehouse> warehouses;
     }
 }

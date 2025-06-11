@@ -1,4 +1,5 @@
 ﻿using InterfacesDal.DTOs;
+using System.IO;
 using System.Threading.Tasks;
 using UnitTestingWarehouseProj.TestClasses;
 using WarehouseBLL;
@@ -6,69 +7,90 @@ using WarehouseBLL;
 namespace UnitTestingWarehouseProj
 {
     [TestClass]
-    public sealed class WarehouseCollectionTests
+    public sealed class WarehouseTests
     {
-        [TestMethod]
-        public async Task GetAllWarehouses_NoTestData_ReturnsAllWarehouses()
+        public Warehouse warehouse;
+        public WarehouseTestRespository WarehouseTestRespositoryValues;
+        public ShelveTestRespository ShelveTestRespositoryValues;
+        public ProductTestRespository ProductTestRespositoryValues;
+
+        [TestInitialize]
+        public void SetUpTests()
         {
-            WarehouseCollection warehouseCollection = new WarehouseCollection(new WarehouseTestDal(), new ShelveTestDal(), new ProductTestDal());
+            //Arrange
+            SetupRepositories();
+            SetupWarehouse();
+        }
 
-            List<Warehouse> warehouses = await warehouseCollection.GetAllWarehouses().ToListAsync();
+        private void SetupRepositories()
+        {
+            WarehouseTestRespositoryValues = new WarehouseTestRespository();
+            ShelveTestRespositoryValues = new ShelveTestRespository();
+            ProductTestRespositoryValues = new ProductTestRespository();
+        }
 
-            Assert.AreEqual(2 ,warehouses.Count());
-            foreach (Warehouse warehouse in warehouses)
+        private void SetupWarehouse()
+        {
+            warehouse = new Warehouse(WarehouseTestRespositoryValues, ShelveTestRespositoryValues, ProductTestRespositoryValues)
             {
-                Assert.AreNotEqual(null, warehouse);
-                Assert.AreNotEqual(0, warehouse.ID);
-                Assert.AreNotEqual(null, warehouse.Name);
-                Assert.AreNotEqual(string.Empty, warehouse.Name);
-                Assert.AreNotEqual(null, warehouse.Postcode);
-                Assert.AreNotEqual(string.Empty, warehouse.Postcode);
-                Assert.AreNotEqual(null, warehouse.Street);
-                Assert.AreNotEqual(string.Empty, warehouse.Street);
+                ID = 1,
+                Name = "warehouse",
+                Postcode = "BS1245",
+                Street = "TestingStreet"
+            };
+        }
+
+
+        [TestMethod]
+        public async Task EditWarehouse_SettingNamePostCodeAndStreet_ReturnsNothing()
+        {
+            //Act
+            await warehouse.EditWarehouse("warehouse 3", "BS5421", "Street");
+
+            //Assert
+            Assert.AreEqual("warehouse 3", WarehouseTestRespositoryValues.LastUpdatedDto.Name);
+            Assert.AreEqual("BS5421", WarehouseTestRespositoryValues.LastUpdatedDto.Postcode);
+            Assert.AreEqual("Street", WarehouseTestRespositoryValues.LastUpdatedDto.Street);
+        }
+        [TestMethod]
+        public async Task GetShelves_GivenWarehouse1_ReturnsAllShelvesWarehouse1()
+        {
+            //Act
+            await warehouse.GetShelves();
+
+            //Assert
+            Assert.AreEqual(4, warehouse.Shelves.Count());
+            foreach(Shelve shelve in warehouse.Shelves) 
+            {
+                Assert.AreNotEqual(null, shelve);
+                Assert.AreEqual(2, shelve.ID);
+                Assert.AreEqual("Shelve 2", shelve.Name);
+
             }
         }
-        [TestMethod]
-        public async Task GetWarehouse_GivenID2_ReturnsWarehouse2()
-        {
-            WarehouseCollection warehouseCollection = new WarehouseCollection(new WarehouseTestDal(), new ShelveTestDal(), new ProductTestDal());
-
-            Warehouse warehouse = await warehouseCollection.GetWarehouse(2);
-
-            Assert.AreNotEqual(null, warehouse);
-            Assert.AreNotEqual(0, warehouse.ID);
-            Assert.AreNotEqual(null, warehouse.Name);
-            Assert.AreNotEqual(string.Empty, warehouse.Name);
-            Assert.AreNotEqual(null, warehouse.Postcode);
-            Assert.AreNotEqual(string.Empty, warehouse.Postcode);
-            Assert.AreNotEqual(null, warehouse.Street);
-            Assert.AreNotEqual(string.Empty, warehouse.Street);
-        }
 
         [TestMethod]
-        public async Task GetWarehouse_GivenID3_ReturnsNull()
+        public async Task GetProducts_GivenWarehouse1And4Shelves_ReturnsAllProducts()
         {
-            WarehouseCollection warehouseCollection = new WarehouseCollection(new WarehouseTestDal(), new ShelveTestDal(), new ProductTestDal());
+            //Arrange
+            await warehouse.GetShelves();
 
-            Warehouse warehouse = await warehouseCollection.GetWarehouse(3);
+            //Act
+            await warehouse.GetProducts();
 
-            Assert.AreEqual(null, warehouse);
-        }
-
-        [TestMethod]
-        public async Task CreateWarehouse_GivenNamePostcodeAndStreet_ReturnsID3()
-        {
-            WarehouseCollection warehouseCollection = new WarehouseCollection(new WarehouseTestDal(), new ShelveTestDal(), new ProductTestDal());
-
-            int WarehouseID = await warehouseCollection.CreateWarehouse("warehouse 3", "3132GS", "street 3");
-
-            Assert.AreEqual(3, WarehouseID);
-            Warehouse warehouse = await warehouseCollection.GetWarehouse(3);
-            Assert.AreNotEqual(null, warehouse);
-            Assert.AreEqual("warehouse 3", warehouse.Name);
-            Assert.AreEqual("3132GS", warehouse.Postcode);
-            Assert.AreEqual("street 3", warehouse.Street);
-
+            //Assert
+            foreach (Shelve shelve in warehouse.Shelves)
+            {
+                foreach (Product product in shelve.Products)
+                {
+                    Assert.AreNotEqual(null, product);
+                    Assert.AreEqual(2, product.ID);
+                    Assert.AreEqual("beans", product.Name);
+                    Assert.AreEqual("test", product.Description);
+                    Assert.AreEqual("521sgh", product.ProductCode);
+                    Assert.AreEqual(26, product.Amount);
+                }
+            }
         }
     }
 }

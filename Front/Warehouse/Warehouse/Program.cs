@@ -17,7 +17,7 @@ builder.Services.AddScoped<Login>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
-builder.Services.AddScoped<IWarehouseRepository, Warehouse_Dal.WarehouseRepository>();
+builder.Services.AddScoped<IWarehouseRepository, WarehouseRepository>();
 builder.Services.AddScoped<IShelveRepository, ShelveRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
@@ -49,7 +49,10 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseSession();
+
+app.UseMiddleware<DataConnMiddleWare>();
 app.UseMiddleware<AuthMiddleWare>();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(

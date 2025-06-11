@@ -16,8 +16,6 @@ namespace WarehouseBLL
         private readonly IShelveRepository ShelveDal;
         private readonly IProductRepository ProductDal;
 
-
-
         public WarehouseCollection(IWarehouseRepository warehouseDal, IShelveRepository shelveDal, IProductRepository productDal )
         {
             this.WarehouseDal = warehouseDal;
@@ -25,9 +23,9 @@ namespace WarehouseBLL
             this.ProductDal = productDal;
         }
 
-        public async IAsyncEnumerable<Warehouse> GetAllWarehouses() 
+        public async IAsyncEnumerable<Warehouse> GetAllWarehouses(int userId) 
         {
-            IAsyncEnumerable<WarehouseDTO> warehouses = WarehouseDal.GetAllWarehouse();
+            IAsyncEnumerable<WarehouseDTO> warehouses = WarehouseDal.GetAllWarehouse(userId);
 
             await foreach (WarehouseDTO warehouse in warehouses)
             {

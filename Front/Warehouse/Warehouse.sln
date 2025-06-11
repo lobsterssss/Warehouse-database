@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.35806.103
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Front_Warehouse", "Warehouse\Front_Warehouse.csproj", "{72E0160A-3601-4E75-BBA1-DB7F338CFA51}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehousePresentation", "Warehouse\WarehousePresentation.csproj", "{72E0160A-3601-4E75-BBA1-DB7F338CFA51}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseBLL", "..\..\Logic\Warehouse_backend\WarehouseBLL.csproj", "{A392F38C-D2DB-4B2C-884D-F5758FD1F7C8}"
 EndProject

@@ -14,7 +14,7 @@
             // Example: Check if the user is authenticated via session
             var isAuthenticated = context.Session.GetInt32("UserID") != null;
 
-            if (!isAuthenticated && !context.Request.Path.StartsWithSegments("/Login"))
+            if (!isAuthenticated && !context.Request.Path.StartsWithSegments("/Login") && !context.Request.Path.StartsWithSegments("/Error"))
             {
                 // Redirect to login if not authenticated
                 context.Response.Redirect("/Login");

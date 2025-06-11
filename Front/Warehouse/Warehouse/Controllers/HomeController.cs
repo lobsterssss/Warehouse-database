@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Diagnostics;
 using Front_Warehouse.Models;
-using WarehouseBLL;
-using Warehouse_Dal;
-using Front_Front_Warehouse.Models;
 
 namespace Front_Warehouse.Controllers
 {
@@ -16,18 +12,6 @@ namespace Front_Warehouse.Controllers
         {
             _logger = logger;
         }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

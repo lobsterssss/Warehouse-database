@@ -11,7 +11,7 @@ namespace Warehouse_Dal
 {
     public class ShelveRepository : IShelveRepository
     {
-        public async IAsyncEnumerable<ShelveDTO> GetWarehouseShelves(int ID)
+        public async IAsyncEnumerable<ShelveDTO> GetWarehouseShelves(int id)
         {
             MySqlCommand sqlcommend = new MySqlCommand(
                 @"Select shelves.* from warehouses
@@ -19,7 +19,7 @@ namespace Warehouse_Dal
                     ON warehouses.ID = shelves.Warehouse_ID
                 WHERE warehouses.ID = @ID"
             );
-            sqlcommend.Parameters.AddWithValue("@ID", ID);
+            sqlcommend.Parameters.AddWithValue("@ID", id);
             using MySqlDataReader reader = await DatabaseConnection.ReaderQuery(sqlcommend);
             while (await reader.ReadAsync())
             {
@@ -30,10 +30,10 @@ namespace Warehouse_Dal
                 };
             }
         }
-        public async IAsyncEnumerable<ShelveDTO> GetShelve(int ID)
+        public async IAsyncEnumerable<ShelveDTO> GetShelve(int id)
         {
             MySqlCommand sqlcommend = new MySqlCommand(@"Select * from shelves where ID = @ID;");
-            sqlcommend.Parameters.AddWithValue("@ID", ID);
+            sqlcommend.Parameters.AddWithValue("@ID", id);
             using MySqlDataReader reader = await DatabaseConnection.ReaderQuery(sqlcommend);
             while (await reader.ReadAsync())
             {
@@ -70,11 +70,13 @@ namespace Warehouse_Dal
 
         }
 
-        public async Task UpdateShelve(ShelveDTO dTOShelve)
+        public async Task UpdateShelve(ShelveDTO dTOShelve, int warehouseID)
         {
             MySqlCommand sqlcommend = new MySqlCommand(@"Update shelves set Name = @Name where ID = @ID");
             sqlcommend.Parameters.AddWithValue("@ID", dTOShelve.ID);
             sqlcommend.Parameters.AddWithValue("@Name", dTOShelve.Name);
+            sqlcommend.Parameters.AddWithValue("@WarehouseID", warehouseID);
+
 
             using MySqlDataReader reader = await DatabaseConnection.ReaderQuery(sqlcommend);
 

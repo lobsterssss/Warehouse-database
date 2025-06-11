@@ -22,14 +22,14 @@ namespace WarehouseBLL
         public String Name { get; set; }
         public List<Product> Products { get; set; }
 
-        public async Task EditShelve()
+        public async Task EditShelve(int warehouseId)
         {
             ShelveDTO dTOShelve = new ShelveDTO()
             {
                 ID = this.ID,
                 Name = this.Name,
             };
-            await this.ShelveDal.UpdateShelve(dTOShelve);
+            await this.ShelveDal.UpdateShelve(dTOShelve, warehouseId);
         }
 
         public async Task GetProducts()

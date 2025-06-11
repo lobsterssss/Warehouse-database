@@ -1,22 +1,29 @@
-﻿using InterfacesDal;
+﻿using Front_Warehouse.Models;
+using InterfacesDal;
 using Microsoft.AspNetCore.Mvc;
-using Front_Warehouse.Models;
-using WarehouseBLL;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
 using Warehouse_Dal;
+using WarehouseBLL;
 
-namespace Front_Front_Warehouse.Controllers
+namespace Front_Warehouse.Controllers
 {
     public class ShelvesController : Controller
     {
         private readonly ShelveCollection shelveCollection;
+        private readonly WarehouseCollection warehouseCollection;
+
+
 
         public List<ShelveViewModel> shelvesViewModel = new List<ShelveViewModel>();
 
-        public ShelvesController(ShelveCollection shelveCollection)
+        public ShelvesController(ShelveCollection shelveCollection, WarehouseCollection warehouseCollection)
         {
             this.shelveCollection = shelveCollection;
+            this.warehouseCollection = warehouseCollection;
+
         }
+
         [HttpGet("/Warehouse/{warehouseID}/shelves")]
         public async Task<IActionResult> Index(int warehouseID)
         {
@@ -53,44 +60,65 @@ namespace Front_Front_Warehouse.Controllers
             return View(shelveViewModel);
         }
 
-        [HttpGet("/Warehouse/{warehouseID}/Shelves/Create")]
+
+        [HttpGet("/Shelves/Create")]
         public async Task<IActionResult> Create()
         {
-            return View("ShelveForm");
+            int userID = (int)HttpContext.Session.GetInt32("UserID");
+            ShelveFormViewModel ShelveForm = new ShelveFormViewModel();
+
+            ShelveForm.warehousesOptions = await this.warehouseCollection.GetAllWarehouses(userID).Select(warehouse => new SelectListItem
+            {
+                Value = warehouse.ID.ToString(),
+                Text = warehouse.Name,
+            }).ToListAsync();
+
+
+            return View("ShelveForm", ShelveForm);
         }
 
-        [HttpPost("/Warehouse/{warehouseID}/Shelves/Create")]
-        public async Task<IActionResult> CreatePost(string Name, int warehouseID)
+        [HttpPost("/Shelves/Create")]
+        public async Task<IActionResult> CreatePost(ShelveFormViewModel ShelveForm)
         {
-            int ShelveID = await this.shelveCollection.CreateShelve(Name, warehouseID);
+            int ShelveID = await this.shelveCollection.CreateShelve(ShelveForm.shelve.Name, int.Parse(ShelveForm.selectedWarehouse));
             return Redirect($"/Shelves/{ShelveID}");
         }
 
-        [HttpGet("/Warehouse/[controller]/{ID}/Edit")]
+        [HttpGet("/[controller]/{ID}/Edit")]
         public async Task<IActionResult> Edit(int ID)
         {
+            int userID = (int)HttpContext.Session.GetInt32("UserID");
+            ShelveFormViewModel ShelveForm = new ShelveFormViewModel();
+
+            ShelveForm.warehousesOptions = await this.warehouseCollection.GetAllWarehouses(userID).Select(warehouse => new SelectListItem
+            {
+                Value = warehouse.ID.ToString(),
+                Text = warehouse.Name,
+            }).ToListAsync();
+
             Shelve shelve = await this.shelveCollection.GetShelve(ID);
-            ShelveViewModel shelveViewModel = new ShelveViewModel
+            ShelveForm.shelve = new ShelveViewModel
             {
                 ID = shelve.ID,
                 Name = shelve.Name,
             };
-            return View("Shelveform", shelveViewModel);
+            return View("Shelveform", ShelveForm);
         }
 
-        [HttpPost("/Warehouse/[controller]/{ID}/Edit")]
-        public async Task<IActionResult> EditPost(int ID, string Name)
+        [HttpPost("/[controller]/{ID}/Edit")]
+        public async Task<IActionResult> EditPost(int ID,ShelveFormViewModel ShelveForm)
         {
             Shelve Shelve = new Shelve(new ShelveRepository(), new ProductRepository())
             {
                 ID = ID,
-                Name = Name,
+                Name = ShelveForm.shelve.Name,
             };
 
-            await Shelve.EditShelve();
+            await Shelve.EditShelve(int.Parse(ShelveForm.selectedWarehouse));
 
             return Redirect($"/Shelves/{ID}");
         }
+
         [HttpPost("/Shelves/{ID}/Delete")]
         public async Task<IActionResult> Delete(int ID)
         {

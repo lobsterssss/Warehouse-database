@@ -19,6 +19,7 @@ namespace Warehouse_Dal
                 MySqlDataReader reader = await Query.ExecuteReaderAsync(CommandBehavior.CloseConnection);
 
                 return reader;
+        
         }
 
         public static async Task<int> ExecuteQuery(MySqlCommand Query)
@@ -30,6 +31,15 @@ namespace Warehouse_Dal
             await connection.OpenAsync();
 
             return await Query.ExecuteNonQueryAsync();
+        }
+
+        public static async Task TestConn()
+        {
+            var connection = new MySqlConnection(connectionString);
+
+
+            await connection.OpenAsync();
+            await connection.CloseAsync();
         }
     }
 }
