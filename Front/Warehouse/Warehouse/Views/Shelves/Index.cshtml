@@ -3,15 +3,17 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    var warehouseID = Context.Request.RouteValues["warehouseID"];
 }
 
 <article>
-    <section>
-        <a asp-controller="Shelves" asp-action="Create">
-            <button>Create shelves</button>
-        </a>
-    </section>
+    @if (ViewBag.userRole == 2)
+    {
+        <section>
+            <a asp-controller="Shelves" asp-action="Create">
+                <button>Create shelves</button>
+            </a>
+        </section>
+    }
     <Item-Container>
         @if (Model.Count() > 0)
         {

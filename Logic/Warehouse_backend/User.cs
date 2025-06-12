@@ -1,13 +1,6 @@
-﻿using InterfacesDal.DTOs;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Reflection.PortableExecutable;
+﻿using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using System.Security.Cryptography;
+using static WarehouseBLL.Role;
 
 namespace WarehouseBLL
 {
@@ -16,9 +9,9 @@ namespace WarehouseBLL
         public int ID { get; set; }
         public string? Name { get; set; }
         public string? Password { get; set; }
-        public Role? Role { get; set; }
+        public Roles? Role { get; set; }
 
-        public bool Login(string password) 
+        public bool Login(string password)
         {
             return this.Password == HashString(password);
         }

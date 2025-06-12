@@ -5,14 +5,17 @@
 
 <article>
     <H2>@Model.Name</H2>
-    <div>
-        <a asp-controller="Shelves" asp-action="Edit" asp-route-id="@Model.ID">
+    @if (ViewBag.userRole == 2)
+    {
+        <div>
+            <a asp-controller="Shelves" asp-action="Edit" asp-route-id="@Model.ID">
             <button>Edit shelve</button>
-        </a>
-        <form asp-controller="Shelves" asp-action="Delete" asp-route-id="@Model.ID">
-            <button type="submit">Delete shelve</button>
-        </form>
-    </div>
+            </a>
+            <form asp-controller="Shelves" asp-action="Delete" asp-route-id="@Model.ID">
+                <button type="submit">Delete shelve</button>
+            </form>
+        </div>
+    }
 
 </article>
 

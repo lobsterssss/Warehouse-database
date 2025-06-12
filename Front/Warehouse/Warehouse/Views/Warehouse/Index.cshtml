@@ -6,11 +6,14 @@
 }
 
 <article>
-    <section>
-        <a asp-controller="Warehouse" asp-action="Create">
+    @if (ViewBag.userRole == 2)
+    {
+        <section>
+            <a asp-controller="Warehouse" asp-action="Create">
             <button>Create Warehouse</button>
         </a>
     </section>
+    }
     <Item-Container>
         @if (Model.Count() > 0) {
             @foreach (WarehouseViewModel warehouse in Model)

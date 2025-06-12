@@ -79,7 +79,6 @@ namespace Front_Warehouse.Controllers
             return Redirect($"/{WarehouseID}/View");
         }
 
-
         [HttpGet("/{ID}/Edit")]
         public async Task<IActionResult> Edit(int ID)
         {

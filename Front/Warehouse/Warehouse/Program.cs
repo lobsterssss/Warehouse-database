@@ -14,10 +14,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<UserCollection>();
 builder.Services.AddScoped<WarehouseCollection>();
 builder.Services.AddScoped<StoreCollection>();
-
+builder.Services.AddScoped<DeliveryCollection>();
 builder.Services.AddScoped<ShelveCollection>();
 builder.Services.AddScoped<Login>();
 
+builder.Services.AddScoped<IDeliveryRepository, DeliveryRepository>();
 builder.Services.AddScoped<IStoreRepository, StoreRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();

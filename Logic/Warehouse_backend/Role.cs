@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WarehouseBLL
+﻿namespace WarehouseBLL
 {
     public class Role
     {
+        public enum Roles 
+        {
+            worker=1,
+            admin=2,
+        }
     }
 }

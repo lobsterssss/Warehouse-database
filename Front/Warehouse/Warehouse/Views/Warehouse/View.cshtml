@@ -8,17 +8,29 @@
     <H4>@Model.Postcode</H4>
     <H4>@Model.Street</H4>
 
-    <div>
-        <a asp-controller="Warehouse" asp-action="Edit" asp-route-id="@Model.ID">
-            <button>Edit Warehouse</button>
-        </a>
-        <form asp-controller="Warehouse" asp-action="Delete" asp-route-id="@Model.ID">
-            <button type="submit">Delete Warehouse</button>
-        </form>
-        <a asp-controller="Shelves" asp-action="Index" asp-route-WarehouseID="@Model.ID">
-            <button>View all shelves</button>
-        </a>
-    </div>
+    <section class="buttonCollection">
+        @if (ViewBag.userRole == 2)
+        {
+            <div>
+                <a asp-controller="Warehouse" asp-action="Edit" asp-route-id="@Model.ID">
+                    <button class="Delete-btn">Edit Warehouse</button>
+                </a>
+                <form asp-controller="Warehouse" asp-action="Delete" asp-route-id="@Model.ID">
+                    <button type="submit">Delete Warehouse</button>
+                </form>
+            </div>
+        }
+        <div>
+
+            <a asp-controller="Shelves" asp-action="Index" asp-route-WarehouseID="@Model.ID">
+                <button>View all shelves</button>
+            </a>
+            <a asp-controller="Delivery" asp-action="Index" asp-route-WarehouseID="@Model.ID">
+                <button>View all deliveries</button>
+            </a>
+        </div>
+
+    </section>
 
 </article>
 

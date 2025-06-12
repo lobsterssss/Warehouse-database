@@ -1,11 +1,5 @@
 ﻿using InterfacesDal;
 using InterfacesDal.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Warehouse_Dal;
 
 namespace WarehouseBLL
 {
@@ -29,7 +23,7 @@ namespace WarehouseBLL
         public String Street { get; set; }
         public List<Shelve> Shelves { get; set; }
 
-        public async Task EditWarehouse(string name, string postcode, string street) 
+        public async Task EditWarehouse(string name, string postcode, string street)
         {
             WarehouseDTO dTOWarehouse = new WarehouseDTO()
             {
@@ -41,10 +35,10 @@ namespace WarehouseBLL
             await this.WarehouseDal.UpdateWarehouse(dTOWarehouse);
         }
 
-        public async Task GetShelves() 
+        public async Task GetShelves()
         {
             var DTOShelves = await ShelveDal.GetWarehouseShelves(this.ID).ToListAsync();
-            this.Shelves = DTOShelves.Select(DTOShelves => new Shelve(ShelveDal, ProductDal) 
+            this.Shelves = DTOShelves.Select(DTOShelves => new Shelve(ShelveDal, ProductDal)
             {
                 ID = DTOShelves.ID,
                 Name = DTOShelves.Name,
@@ -56,7 +50,7 @@ namespace WarehouseBLL
         {
             foreach (Shelve shelve in Shelves)
             {
-               await shelve.GetProducts();
+                await shelve.GetProducts();
             }
         }
     }

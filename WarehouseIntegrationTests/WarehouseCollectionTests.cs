@@ -1,41 +1,35 @@
 ﻿using InterfacesDal.DTOs;
 using System.IO;
 using System.Threading.Tasks;
-using UnitTestingWarehouseProj.TestClasses;
+using Warehouse_Dal;
 using WarehouseBLL;
 
-namespace UnitTestingWarehouseProj
+namespace WarehouseIntegrationTests
 {
     [TestClass]
     public sealed class WarehouseCollectionTests
     {
         public WarehouseCollection WarehouseCollection;
-        public WarehouseTestRespository WarehouseTestRespositoryValues;
-        public ShelveTestRespository ShelveTestRespositoryValues;
-        public ProductTestRespository ProductTestRespositoryValues;
 
         [TestInitialize]
         public void SetUpTests()
         {
             //Arrange
-            SetupRepositories();
+            bool TestIntegration = false;
+            if (!TestIntegration) 
+            {
+                Assert.Inconclusive("due to not wanting random data in the database this will end the tests");
+            }
             SetupWarehouseCollection();
-        }
-
-        private void SetupRepositories()
-        {
-            WarehouseTestRespositoryValues = new WarehouseTestRespository();
-            ShelveTestRespositoryValues = new ShelveTestRespository();
-            ProductTestRespositoryValues = new ProductTestRespository();
         }
         private void SetupWarehouseCollection()
         {
-            WarehouseCollection = new WarehouseCollection(WarehouseTestRespositoryValues, ShelveTestRespositoryValues, ProductTestRespositoryValues);
+            WarehouseCollection = new WarehouseCollection(new WarehouseRepository(), new ShelveRepository(), new ProductRepository());
         }
 
 
         [TestMethod]
-        public async Task GetAllWarehouses_NoTestData_ReturnsAllWarehouses()
+        public async Task GetAllWarehouses_BasedOnUser1_ReturnsAllWarehouses()
         {
             //Act
             List<Warehouse> warehouses = await WarehouseCollection.GetAllWarehouses(1).ToListAsync();

@@ -1,12 +1,6 @@
 ﻿using InterfacesDal;
 using InterfacesDal.DTOs;
-using System;
-using System.Data;
-using System.Reflection.PortableExecutable;
 using System.Runtime.CompilerServices;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Warehouse_Dal;
 [assembly: InternalsVisibleTo("UnitTestingWarehouseProj")]
 namespace WarehouseBLL
 {
@@ -16,14 +10,14 @@ namespace WarehouseBLL
         private readonly IShelveRepository ShelveDal;
         private readonly IProductRepository ProductDal;
 
-        public WarehouseCollection(IWarehouseRepository warehouseDal, IShelveRepository shelveDal, IProductRepository productDal )
+        public WarehouseCollection(IWarehouseRepository warehouseDal, IShelveRepository shelveDal, IProductRepository productDal)
         {
             this.WarehouseDal = warehouseDal;
             this.ShelveDal = shelveDal;
             this.ProductDal = productDal;
         }
 
-        public async IAsyncEnumerable<Warehouse> GetAllWarehouses(int userId) 
+        public async IAsyncEnumerable<Warehouse> GetAllWarehouses(int userId)
         {
             IAsyncEnumerable<WarehouseDTO> warehouses = WarehouseDal.GetAllWarehouse(userId);
 
@@ -68,11 +62,11 @@ namespace WarehouseBLL
 
         public async Task<int> CreateWarehouse(string name, string postcode, string street)
         {
-            WarehouseDTO Warehouse = new WarehouseDTO() 
+            WarehouseDTO Warehouse = new WarehouseDTO()
             {
-               Name = name,
-               Postcode = postcode,
-               Street = street,
+                Name = name,
+                Postcode = postcode,
+                Street = street,
             };
 
             int WarehouseID = await WarehouseDal.CreateWarehouse(Warehouse).FirstAsync();

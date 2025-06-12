@@ -1,10 +1,6 @@
 ﻿using InterfacesDal;
 using InterfacesDal.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static WarehouseBLL.Role;
 
 namespace WarehouseBLL
 {
@@ -17,7 +13,7 @@ namespace WarehouseBLL
             this.LoginDal = LoginDal;
         }
 
-        public async Task<int?> Login_User(string Name, string password)
+        public async Task<User?> Login_User(string Name, string password)
         {
             User User = new User();
             IAsyncEnumerable<UserDTO> users = LoginDal.LoginRequest(Name);
@@ -28,15 +24,15 @@ namespace WarehouseBLL
                 {
                     ID = user.ID,
                     Name = Name,
-                    Password = user.Passcode
-                    //Role = user.Role_ID,
+                    Password = user.Passcode,
+                    Role = (Roles)user.Role_ID,
                 };
             }
             if (User.Name == null || !User.Login(password))
             {
                 return null;
             }
-            return User.ID;
+            return User;
         }
     }
 }

@@ -34,10 +34,12 @@ namespace Front_Warehouse.Controllers
             {
                 return View("login", user);
             }
-            int? result = await LoginManager.Login_User(user.Name, user.Password);
+            User result = await LoginManager.Login_User(user.Name, user.Password);
             if (result != null)
             {
-                HttpContext.Session.SetInt32("UserID", (int)result);
+                HttpContext.Session.SetInt32("UserID", result.ID);
+                HttpContext.Session.SetInt32("UserRole", (int)result.Role);
+
                 return Redirect("/");
             }
             ModelState.AddModelError(string.Empty, "Wrong username or password.");
