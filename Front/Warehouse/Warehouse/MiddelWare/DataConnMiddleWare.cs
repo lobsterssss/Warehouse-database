@@ -21,7 +21,7 @@ namespace Front_Warehouse.MiddelWare
                 }
                 catch (MySqlException)
                 {
-                    context.Response.Redirect("/Error/404");
+                    context.Response.Redirect("/Error/500");
                     return;
                 }
             }
