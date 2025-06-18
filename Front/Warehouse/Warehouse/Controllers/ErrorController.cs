@@ -4,10 +4,10 @@ namespace WarehousePresentation.Controllers
 {
     public class ErrorController : Controller
     {
-        [HttpGet("/[controller]/404")]
+        [HttpGet("/[controller]/500")]
         public IActionResult Index()
         {
-            return View("Error404");
+            return View("Error500");
         }
     }
 }

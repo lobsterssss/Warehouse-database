@@ -3,13 +3,15 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    int warehouseId = ViewBag.WarehouseId;
 }
 
 <article>
     <section>
-        <a asp-controller="Delivery" asp-action="Create">
-            <button>Create Delivery</button>
+        <a asp-controller="delivery" asp-action="create" asp-route-WarehouseID="@warehouseId">
+            <button>create delivery</button>
         </a>
+
     </section>
     <Item-Container>
         @if (Model.Count() > 0)
@@ -21,7 +23,7 @@
         }
         else
         {
-            <h2>No Shelves found</h2>
+            <h2>No Delivery found</h2>
         }
         </Warehouse-Container>
 </article>

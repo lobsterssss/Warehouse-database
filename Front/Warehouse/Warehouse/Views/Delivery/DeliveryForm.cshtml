@@ -1,0 +1,85 @@
+﻿@model DeliveryFormViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+}
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    <h2>Delivery Creation</h2>
+    <div>
+        <label>Store</label>
+        @Html.DropDownListFor(m => m.selectedStore, Model.StoreViewModels, "Select a store", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.StoreViewModels)
+        <!-- generates: <input name="Name" ...> -->
+    </div>
+    <div>
+        <select id="product-control">
+            <option value="">--Please choose an option--</option>
+        @foreach (var shelves in Model.WarehouseViewModel.Shelves)
+        {
+            @foreach (var product in shelves.Products)
+            {
+                <option value="@product.ID">@product.Name</option>
+            }
+        }
+        </select>
+
+        <!-- generates: <dropdown name="Name" ...> -->
+    </div>
+
+
+    <div>
+        <button type="button" id="add-product">add Product</button>
+    </div>
+
+    <div id="product-List">
+
+    </div>
+
+    <div>
+        <button type="submit">Commit</button>
+    </div>
+}
+@section Scripts {
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const container = document.getElementById('product-List');
+        const addBtn = document.getElementById('add-product');
+        const Product = document.getElementById('product-control');
+
+         let index = container.children.length ?? 0;
+
+        addBtn.addEventListener('click', function () {
+                if(Product.value == "")
+                {
+                    return;
+                }
+
+            const div = document.createElement('div');
+
+              div.innerHTML = `
+                    <input name="DeliveryViewModel.DeliveryProducts[${index}].ID" type="hidden" value="${Product.value}" class="form-control" />
+                <h2>${Product.options[Product.selectedIndex].text}</h2>
+                    <input value="${Product.options[Product.selectedIndex].text}" name="DeliveryViewModel.DeliveryProducts[${index}].Name" type="hidden" class="form-control" />
+                <label>Amount</label>
+                <input name="DeliveryViewModel.DeliveryProducts[${index}].Amount" type="number" class="form-control" />
+                <button type="button" class="remove-product">Remove</button>
+            `;
+
+            container.appendChild(div);
+            index++;
+        });
+
+
+
+        container.addEventListener('click', function (e) {
+                if (e.target.classList.contains('remove-product')) {
+                e.target.parentElement.remove();
+            }
+        });
+    });
+</script>
+}

@@ -34,5 +34,32 @@ namespace Warehouse_Dal
                 };
             }
         }
+
+        public async IAsyncEnumerable<ProductDTO> GetAllProductsFromDelivery(int Id)
+        {
+            MySqlCommand sqlcommend = new MySqlCommand(
+                @"Select delivery_products.*, product_type.*, products.Product_code  from deliveries
+                INNER JOIN delivery_products 
+                    ON deliveries.ID = delivery_products.delivery_ID
+                INNER JOIN products 
+                    ON products.ID = delivery_products.Product_ID
+                INNER JOIN product_type 
+                    ON product_type.ID = products.Product_type_ID
+                WHERE deliveries.ID = @ID"
+            );
+            sqlcommend.Parameters.AddWithValue("@ID", Id);
+            using MySqlDataReader reader = await DatabaseConnection.ReaderQuery(sqlcommend);
+            while (await reader.ReadAsync())
+            {
+                yield return new ProductDTO
+                {
+                    ID = reader.GetInt32("ID"),
+                    Name = reader.GetString("Name"),
+                    Description = reader.GetString("Description"),
+                    ProductCode = reader.GetString("Product_code"),
+                    Amount = reader.GetInt32("Amount"),
+                };
+            }
+        }
     }
 }

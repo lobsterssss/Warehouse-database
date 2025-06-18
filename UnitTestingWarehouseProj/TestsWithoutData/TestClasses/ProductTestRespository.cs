@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using WarehouseBLL;
 using Warehouse_Dal;
 
-namespace UnitTestingWarehouseProj.TestClasses
+namespace UnitTestingWarehouseProj.TestsWithoutData.TestClassesWithoutData
 {
     public class ProductTestRespository : IProductRepository
     {
@@ -18,16 +18,15 @@ namespace UnitTestingWarehouseProj.TestClasses
         {
 
         }
+
+        public IAsyncEnumerable<ProductDTO> GetAllProductsFromDelivery(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async IAsyncEnumerable<ProductDTO> GetShelveProducts(int ID)
         {
-            yield return new ProductDTO()
-            {
-                ID = 2,
-                Name = "beans",
-                Amount = 26,
-                Description = "test",
-                ProductCode = "521sgh"
-            };
+            yield return null;
         }
     }
 }

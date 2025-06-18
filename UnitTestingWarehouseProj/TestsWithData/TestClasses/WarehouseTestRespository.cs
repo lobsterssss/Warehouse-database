@@ -7,11 +7,12 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UnitTestingWarehouseProj.TestClasses
+namespace UnitTestingWarehouseProj.TestsWithData.TestClasses
 {
     public class WarehouseTestRespository : IWarehouseRepository
     {
         public WarehouseDTO LastUpdatedDto;
+        public int LastDeletedValue;
         public async IAsyncEnumerable<int> CreateWarehouse(WarehouseDTO dTOWarehouse)
         {
             yield return 3;
@@ -19,10 +20,10 @@ namespace UnitTestingWarehouseProj.TestClasses
 
         public async Task DeleteWarehouse(int ID)
         {
-
+            LastDeletedValue = ID;
         }
 
-        public async IAsyncEnumerable<WarehouseDTO> GetAllWarehouse()
+        public async IAsyncEnumerable<WarehouseDTO> GetAllWarehouse(int userId)
         {
             yield return new WarehouseDTO()
             {

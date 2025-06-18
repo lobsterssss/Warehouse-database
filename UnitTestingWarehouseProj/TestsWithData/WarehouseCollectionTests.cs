@@ -1,10 +1,10 @@
 ﻿using InterfacesDal.DTOs;
 using System.IO;
 using System.Threading.Tasks;
-using UnitTestingWarehouseProj.TestClasses;
+using UnitTestingWarehouseProj.TestsWithData.TestClasses;
 using WarehouseBLL;
 
-namespace UnitTestingWarehouseProj
+namespace UnitTestingWarehouseProj.TestsWithData
 {
     [TestClass]
     public sealed class WarehouseCollectionTests
@@ -35,7 +35,7 @@ namespace UnitTestingWarehouseProj
 
 
         [TestMethod]
-        public async Task GetAllWarehouses_NoTestData_ReturnsAllWarehouses()
+        public async Task GetAllWarehouses_asUser1_ReturnsAllWarehouses()
         {
             //Act
             List<Warehouse> warehouses = await WarehouseCollection.GetAllWarehouses(1).ToListAsync();
@@ -90,6 +90,16 @@ namespace UnitTestingWarehouseProj
             
             //Assert
             Assert.AreEqual(3, WarehouseID);
+        }
+
+        [TestMethod]
+        public async Task DeleteWarehouse_GivenID1_ReturnsID1()
+        {
+            //Act
+            await WarehouseCollection.DeleteWarehouse(1);
+
+            //Assert
+            Assert.AreEqual(1, WarehouseTestRespositoryValues.LastDeletedValue);
         }
     }
 }

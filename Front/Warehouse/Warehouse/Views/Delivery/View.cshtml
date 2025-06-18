@@ -1,0 +1,43 @@
+﻿@model DeliveryViewModel
+
+@{
+}
+
+<article>
+    <H2>@Model.ID</H2>
+</article>
+
+<article>
+    <h4>
+        <th>Products</th>
+    </h4>
+    <table>
+        <thead>
+            <tr>
+                <th>code</th>
+                <th>name</th>
+                <th>description</th>
+                <th>amount</th>
+                @* <th>actions</th> *@
+            </tr>
+        </thead>
+        <tbody>
+
+            @if (Model.DeliveryProducts != null && Model.DeliveryProducts.Any())
+                {
+                @foreach (var product in Model.DeliveryProducts)
+                    {
+                        <tr>
+                            <td>@product.ProductCode</td>
+                            <td>@product.Name</td>
+                            <td>@product.Description</td>
+                            <td>@product.Amount</td>
+                            @* <td>hi there</td> *@
+
+                        </tr>
+                    }
+                }
+        </tbody>
+    </table>
+</article>
+

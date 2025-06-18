@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NLog" Version="5.5.0" />
+    <PackageReference Include="Serilog" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\Dal\Warehouse_Dal\Warehouse_Dal\WarehouseDal.csproj" />
     <ProjectReference Include="..\..\..\interface\Database_interface\InterfacesDal.csproj" />
     <ProjectReference Include="..\..\..\Logic\Warehouse_backend\WarehouseBLL.csproj" />

@@ -1,14 +1,22 @@
 using Front_Warehouse.MiddelWare;
 using InterfacesDal;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Warehouse_Dal;
 using WarehouseBLL;
 using WarehouseDal;
 
-
-
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Logging.ClearProviders();
+builder.Logging.AddDebug();
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true) // default
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
+    .AddEnvironmentVariables();
+
+DatabaseConnection.Initialize(builder.Configuration);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -41,8 +49,28 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error/500");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseExceptionHandler(errorApp =>
+    {
+        errorApp.Run(async context =>
+        {
+            context.Response.StatusCode = 500;
+            context.Response.ContentType = "text/html";
+
+            var exceptionHandlerPathFeature =
+                context.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature>();
+
+            var logger = context.RequestServices
+                .GetRequiredService<ILogger<Program>>(); // or use a custom class name
+
+            if (exceptionHandlerPathFeature?.Error is Exception ex)
+            {
+                logger.LogError(ex, "An unhandled exception occurred at path: {Path}", exceptionHandlerPathFeature.Path);
+            }
+
+            context.Response.Redirect("/Error/500");
+        });
+    });
+
     app.UseHsts();
 }
 

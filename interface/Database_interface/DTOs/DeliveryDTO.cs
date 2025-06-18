@@ -10,5 +10,7 @@ namespace InterfacesDal.DTOs
     {
         public int ID { get; set; }
         public string Status { get; set; }
+        public List<ProductDTO> Products { get; set; }
+
     }
 }

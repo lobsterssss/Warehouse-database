@@ -54,6 +54,15 @@ namespace WarehouseBLL
 
         public async Task<int> CreateShelve(string name, int warehouseID)
         {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("Shelve name is required", nameof(name));
+            }
+            if (warehouseID == null)
+            {
+                throw new ArgumentException("Warehouse is required", nameof(warehouseID));
+            }
+
             ShelveDTO Shelve = new ShelveDTO()
             {
                 Name = name,

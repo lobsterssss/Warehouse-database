@@ -1,13 +1,18 @@
 ﻿using InterfacesDal;
+using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 using System.Data;
 
 namespace Warehouse_Dal
 {
-    public class DatabaseConnection
+    public static class DatabaseConnection
     {
-        private static string connectionString = "Server=127.0.0.1;Port=3306;User ID=root;Password=root;Database=Warehouse;";
+        private static string connectionString;
 
+        public static void Initialize(IConfiguration configuration)
+        {
+            connectionString = configuration.GetConnectionString("DefaultConnection");
+        }
         public static async Task<MySqlDataReader> ReaderQuery(MySqlCommand Query)
         {
                 var connection = new MySqlConnection(connectionString);

@@ -13,7 +13,7 @@ namespace InterfacesDal
 
         public IAsyncEnumerable<DeliveryDTO> GetDelivery(int iD);
 
-        public IAsyncEnumerable<int> CreateDelivery(DeliveryDTO deliveryDTO);
+        public Task<int> CreateDelivery(DeliveryDTO deliveryDTO, int warehouseId, int storeId);
 
         public Task UpdateDelivery(DeliveryDTO deliveryDTO);
     }

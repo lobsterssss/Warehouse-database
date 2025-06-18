@@ -5,15 +5,16 @@ using WarehouseBLL;
 
 namespace Front_Warehouse.Models
 {
-    public class ShelveViewModel
+    public class DeliveryProductViewModel
     {
         public int? ID { get; set; }
-        [MaxLength(20)]
-        [MinLength(2)]
         [Required]
-        public String Name { get; set; }
+        public string Name { get; set; }
         [ValidateNever]
-        public List<ProductViewModel> Products { get; set; }
-
+        public string Description { get; set; }
+        [ValidateNever]
+        public string ProductCode { get; set; }
+        [Required]
+        public int Amount { get; set; }
     }
 }

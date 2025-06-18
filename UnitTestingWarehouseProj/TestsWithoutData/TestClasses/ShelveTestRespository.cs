@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WarehouseBLL;
 
-namespace UnitTestingWarehouseProj.TestClasses
+namespace UnitTestingWarehouseProj.TestsWithoutData.TestClassesWithoutData
 {
     public class ShelveTestRespository : IShelveRepository
     {
@@ -25,38 +25,15 @@ namespace UnitTestingWarehouseProj.TestClasses
 
         public async IAsyncEnumerable<ShelveDTO> GetShelve(int ID)
         {
-            yield return new ShelveDTO()
-            {
-                ID = 2,
-                Name = "Shelve 2",
-            };
+            yield break;
         }
 
         public async IAsyncEnumerable<ShelveDTO> GetWarehouseShelves(int ID)
         {
-            yield return new ShelveDTO()
-            {
-                ID = 2,
-                Name = "Shelve 2",
-            };
-            yield return new ShelveDTO()
-            {
-                ID = 2,
-                Name = "Shelve 2",
-            };
-            yield return new ShelveDTO()
-            {
-                ID = 2,
-                Name = "Shelve 2",
-            };
-            yield return new ShelveDTO()
-            {
-                ID = 2,
-                Name = "Shelve 2",
-            };
+            yield break;
         }
 
-        public Task UpdateShelve(ShelveDTO dTOShelve)
+        public Task UpdateShelve(ShelveDTO dTOShelve, int warehouseId)
         {
             throw new NotImplementedException();
         }

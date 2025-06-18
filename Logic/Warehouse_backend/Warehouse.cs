@@ -25,6 +25,21 @@ namespace WarehouseBLL
 
         public async Task EditWarehouse(string name, string postcode, string street)
         {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("Warehouse name is required", nameof(name));
+            }
+
+            if (string.IsNullOrWhiteSpace(postcode))
+            {
+                throw new ArgumentException("Postcode is required", nameof(postcode));
+            }
+
+            if (string.IsNullOrWhiteSpace(street))
+            {
+                throw new ArgumentException("Street is required", nameof(street));
+            }
+
             WarehouseDTO dTOWarehouse = new WarehouseDTO()
             {
                 ID = this.ID,

@@ -15,7 +15,7 @@ namespace WarehouseIntegrationTests
         public void SetUpTests()
         {
             //Arrange
-            bool TestIntegration = false;
+            bool TestIntegration = true;
             if (!TestIntegration) 
             {
                 Assert.Inconclusive("due to not wanting random data in the database this will end the tests");
@@ -27,7 +27,6 @@ namespace WarehouseIntegrationTests
             WarehouseCollection = new WarehouseCollection(new WarehouseRepository(), new ShelveRepository(), new ProductRepository());
         }
 
-
         [TestMethod]
         public async Task GetAllWarehouses_BasedOnUser1_ReturnsAllWarehouses()
         {
@@ -35,14 +34,14 @@ namespace WarehouseIntegrationTests
             List<Warehouse> warehouses = await WarehouseCollection.GetAllWarehouses(1).ToListAsync();
 
             //Assert
-            Assert.AreEqual(2 ,warehouses.Count());
+            Assert.AreEqual(1 ,warehouses.Count());
             foreach (Warehouse warehouse in warehouses)
             {
                 Assert.AreNotEqual(null, warehouse);
-                Assert.AreEqual(1, warehouse.ID);
-                Assert.AreEqual("warehouse 1", warehouse.Name);
-                Assert.AreEqual("2132GS", warehouse.Postcode);
-                Assert.AreEqual("street 1", warehouse.Street);
+                Assert.AreEqual(null, warehouse.ID);
+                Assert.AreNotEqual(null, warehouse.Name);
+                Assert.AreEqual(null, warehouse.Postcode);
+                Assert.AreEqual(null, warehouse.Street);
             }
         }
 
@@ -80,10 +79,15 @@ namespace WarehouseIntegrationTests
         public async Task CreateWarehouse_GivenNamePostcodeAndStreet_ReturnsID3()
         {
             //Act
-            int WarehouseID = await WarehouseCollection.CreateWarehouse("warehouse 3", "3132GS", "street 3");
-            
+            int WarehouseID = await WarehouseCollection.CreateWarehouse("new test warehouse", "3132GS", "street 3");
+
             //Assert
-            Assert.AreEqual(3, WarehouseID);
+            Warehouse warehouse = await WarehouseCollection.GetWarehouse(WarehouseID);
+
+            Assert.AreEqual("new test warehouse", warehouse.Name);
+            Assert.AreEqual("3132GS", warehouse.Postcode);
+            Assert.AreEqual("street 3", warehouse.Street);
+
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Front_Warehouse.Models
     {
         public int? ID { get; set; }
         [Required]
-        //[MinLength(4)]
+        [MinLength(4)]
         [MaxLength(20)]
         public string Name { get; set; }
         [Required]

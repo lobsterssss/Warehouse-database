@@ -11,6 +11,7 @@ namespace InterfacesDal
     {
         public abstract IAsyncEnumerable<ProductDTO> GetShelveProducts(int ID);
 
+        public abstract IAsyncEnumerable<ProductDTO> GetAllProductsFromDelivery(int Id);
 
     }
 }

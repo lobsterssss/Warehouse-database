@@ -12,17 +12,16 @@ namespace Front_Warehouse.Controllers
     {
         private readonly WarehouseCollection warehouseCollection;
 
-        public List<WarehouseViewModel> warehousesViewModel = new List<WarehouseViewModel>();
-
         public WarehouseController(WarehouseCollection warehouseCollection)
         {
             this.warehouseCollection = warehouseCollection;
+
         }
 
         public async Task<IActionResult> Index()
         {
             int userID = (int)HttpContext.Session.GetInt32("UserID");
-            warehousesViewModel = await this.warehouseCollection.GetAllWarehouses(userID).Select(warehouse => new WarehouseViewModel
+            List<WarehouseViewModel> warehousesViewModel = await this.warehouseCollection.GetAllWarehouses(userID).Select(warehouse => new WarehouseViewModel
             {
                 ID = warehouse.ID,
                 Name = warehouse.Name,
@@ -65,18 +64,36 @@ namespace Front_Warehouse.Controllers
             return View(warehousesViewModel);
         }
 
+
         [HttpGet("/Create")]
         public async Task<IActionResult> Create()
         {
             return View("WarehouseForm");
         }
 
+        [BindProperty]
+        public WarehouseViewModel Warehouse { get; set; }
+
         [HttpPost("/Create")]
-        public async Task<IActionResult> CreatePost(string Name, string Postcode, string Street)
+        public async Task<IActionResult> CreatePost()
         {
-            int userID = (int)HttpContext.Session.GetInt32("UserID");
-            int WarehouseID = await this.warehouseCollection.CreateWarehouse(Name, Postcode, Street);
-            return Redirect($"/{WarehouseID}/View");
+            if (!ModelState.IsValid)
+            {
+                return View("WarehouseForm", Warehouse);
+            }
+
+            try
+            {
+                int userID = (int)HttpContext.Session.GetInt32("UserID");
+                int warehouseID = await warehouseCollection.CreateWarehouse(Warehouse.Name, Warehouse.Postcode, Warehouse.Street);
+                return Redirect($"/{warehouseID}/View");
+            }
+            catch (ArgumentException ex)
+            {
+                // Associate error with the correct field
+                ModelState.AddModelError(ex.ParamName ?? "", ex.Message);
+                return View("WarehouseForm", Warehouse);
+            }
         }
 
         [HttpGet("/{ID}/Edit")]
@@ -95,18 +112,29 @@ namespace Front_Warehouse.Controllers
         }
 
         [HttpPost("/{ID}/Edit")]
-        public async Task<IActionResult> EditPost(int ID, string Name, string Postcode, string Street)
+        public async Task<IActionResult> EditPost()
         {
-           Warehouse warehouse = new Warehouse(new WarehouseRepository(), new ShelveRepository(), new ProductRepository() ) { 
-                ID = ID,
-                Name = Name,
-                Postcode= Postcode,
-                Street = Street,
+            if (!ModelState.IsValid)
+            {
+                return View("WarehouseForm", Warehouse);
+            }
+            Warehouse warehouse = new Warehouse(new WarehouseRepository(), new ShelveRepository(), new ProductRepository() ) { 
+                ID = Warehouse.ID,
+                Name = Warehouse.Name,
+                Postcode= Warehouse.Postcode,
+                Street = Warehouse.Street,
             };
+            try
+            {
+                await warehouse.EditWarehouse(Warehouse.Name, Warehouse.Postcode, Warehouse.Street);
+                return Redirect($"/{Warehouse.ID}/View");
 
-            await warehouse.EditWarehouse(Name, Postcode, Street);
-            
-            return Redirect($"/{ID}/View");
+            }
+            catch (ArgumentException ex) 
+            {
+                ModelState.AddModelError(ex.ParamName ?? "", ex.Message);
+                return View("WarehouseForm", Warehouse);
+            }
         }
 
         [HttpPost("/{ID}/Delete")]

@@ -13,8 +13,6 @@ namespace Front_Warehouse.Controllers
         private readonly ShelveCollection shelveCollection;
         private readonly WarehouseCollection warehouseCollection;
 
-
-
         public List<ShelveViewModel> shelvesViewModel = new List<ShelveViewModel>();
 
         public ShelvesController(ShelveCollection shelveCollection, WarehouseCollection warehouseCollection)
@@ -80,6 +78,11 @@ namespace Front_Warehouse.Controllers
         [HttpPost("/Shelves/Create")]
         public async Task<IActionResult> CreatePost(ShelveFormViewModel ShelveForm)
         {
+            if (!ModelState.IsValid)
+            {
+                return await Create();
+            }
+
             int ShelveID = await this.shelveCollection.CreateShelve(ShelveForm.shelve.Name, int.Parse(ShelveForm.selectedWarehouse));
             return Redirect($"/Shelves/{ShelveID}");
         }
@@ -108,15 +111,27 @@ namespace Front_Warehouse.Controllers
         [HttpPost("/[controller]/{ID}/Edit")]
         public async Task<IActionResult> EditPost(int ID,ShelveFormViewModel ShelveForm)
         {
+            if (!ModelState.IsValid)
+            {
+                return await Edit(ID);
+            }
             Shelve Shelve = new Shelve(new ShelveRepository(), new ProductRepository())
             {
                 ID = ID,
                 Name = ShelveForm.shelve.Name,
             };
+            try
+            {
+                await Shelve.EditShelve(int.Parse(ShelveForm.selectedWarehouse));
+                return Redirect($"/Shelves/{ID}");
+            }
+            catch (ArgumentException ex)
+            {
+                // Associate error with the correct field
+                ModelState.AddModelError(ex.ParamName ?? "", ex.Message);
+                return await Edit(ID);
 
-            await Shelve.EditShelve(int.Parse(ShelveForm.selectedWarehouse));
-
-            return Redirect($"/Shelves/{ID}");
+            }
         }
 
         [HttpPost("/Shelves/{ID}/Delete")]

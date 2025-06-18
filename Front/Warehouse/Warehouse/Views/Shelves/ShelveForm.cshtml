@@ -17,6 +17,8 @@
     <div>
         <label>Warehouse</label>
         @Html.DropDownListFor(m => m.selectedWarehouse, Model.warehousesOptions, "Select a warehouse", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.selectedWarehouse)
+
         <!-- generates: <dropdown name="Name" ...> -->
     </div>
 

@@ -1,10 +1,10 @@
 ﻿using InterfacesDal.DTOs;
 using System.IO;
 using System.Threading.Tasks;
-using UnitTestingWarehouseProj.TestClasses;
+using UnitTestingWarehouseProj.TestsWithData.TestClasses;
 using WarehouseBLL;
 
-namespace UnitTestingWarehouseProj
+namespace UnitTestingWarehouseProj.TestsWithData
 {
     [TestClass]
     public sealed class WarehouseTests

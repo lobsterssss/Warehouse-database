@@ -19,6 +19,15 @@ namespace WarehouseBLL
 
         public async Task EditShelve(int warehouseId)
         {
+            if (string.IsNullOrWhiteSpace(Name))
+            {
+                throw new ArgumentException("Shelve name is required", nameof(Name));
+            }
+            if (warehouseId != null)
+            {
+                throw new ArgumentException("Warehouse is required", nameof(warehouseId));
+            }
+
             ShelveDTO dTOShelve = new ShelveDTO()
             {
                 ID = this.ID,
