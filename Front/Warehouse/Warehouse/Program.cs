@@ -1,7 +1,8 @@
 using Front_Warehouse.MiddelWare;
 using InterfacesDal;
-using WarehouseBLL;
+using Microsoft.Extensions.Configuration;
 using Warehouse_Dal;
+using WarehouseBLL;
 using WarehouseDal;
 
 
@@ -27,7 +28,6 @@ builder.Services.AddScoped<IShelveRepository, ShelveRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 builder.Services.AddDistributedMemoryCache();
-
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddSession(options =>
@@ -41,7 +41,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Error/500");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
