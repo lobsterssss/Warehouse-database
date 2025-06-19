@@ -13,6 +13,11 @@ namespace WarehouseDal
 {
     public class DeliveryRepository : IDeliveryRepository
     {
+        private readonly IDatabaseConnection DatabaseConnection;
+        public DeliveryRepository(IDatabaseConnection databaseConnection) 
+        {
+            DatabaseConnection = databaseConnection;
+        }
 
         public async Task<int> CreateDelivery(DeliveryDTO deliveryDTO, int warehouseId, int storeId)
         {

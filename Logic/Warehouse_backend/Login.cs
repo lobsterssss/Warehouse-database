@@ -15,6 +15,17 @@ namespace WarehouseBLL
 
         public async Task<User?> Login_User(string Name, string password)
         {
+            if (string.IsNullOrWhiteSpace(Name))
+            {
+                throw new ArgumentException("User name is required", nameof(Name));
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                throw new ArgumentException("Password is required", nameof(password));
+            }
+
+
             User User = new User();
             IAsyncEnumerable<UserDTO> users = LoginDal.LoginRequest(Name);
 

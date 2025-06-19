@@ -12,7 +12,7 @@
     <div>
         <label>Store</label>
         @Html.DropDownListFor(m => m.selectedStore, Model.StoreViewModels, "Select a store", new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.StoreViewModels)
+        @Html.ValidationMessageFor(m => m.selectedStore)
         <!-- generates: <input name="Name" ...> -->
     </div>
     <div>
@@ -26,6 +26,7 @@
             }
         }
         </select>
+        @Html.ValidationMessageFor(m => m.DeliveryViewModel.DeliveryProducts)
 
         <!-- generates: <dropdown name="Name" ...> -->
     </div>

@@ -16,9 +16,9 @@
 
 
 -- Dumping database structure for warehouse
-DROP DATABASE IF EXISTS `warehouse`;
-CREATE DATABASE IF NOT EXISTS `warehouse` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
-USE `warehouse`;
+DROP DATABASE IF EXISTS `testwarehouse`;
+CREATE DATABASE IF NOT EXISTS `testwarehouse` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+USE `testwarehouse`;
 
 -- Dumping structure for table warehouse.deliveries
 DROP TABLE IF EXISTS `deliveries`;

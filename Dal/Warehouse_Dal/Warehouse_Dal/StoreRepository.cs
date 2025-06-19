@@ -12,6 +12,12 @@ namespace WarehouseDal
 {
     public class StoreRepository : IStoreRepository
     {
+        private readonly IDatabaseConnection DatabaseConnection;
+        public StoreRepository(IDatabaseConnection databaseConnection)
+        {
+            DatabaseConnection = databaseConnection;
+        }
+
         public async IAsyncEnumerable<StoreDTO> GetAllStores()
         {
             MySqlCommand sqlcommend = new MySqlCommand(@"Select * from stores");

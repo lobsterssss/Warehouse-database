@@ -5,15 +5,15 @@ using System.Data;
 
 namespace Warehouse_Dal
 {
-    public static class DatabaseConnection
+    public class DatabaseConnection : IDatabaseConnection
     {
-        private static string connectionString;
+        private string connectionString;
 
-        public static void Initialize(IConfiguration configuration)
+        public DatabaseConnection(IConfiguration configuration)
         {
             connectionString = configuration.GetConnectionString("DefaultConnection");
         }
-        public static async Task<MySqlDataReader> ReaderQuery(MySqlCommand Query)
+        public async Task<MySqlDataReader> ReaderQuery(MySqlCommand Query)
         {
                 var connection = new MySqlConnection(connectionString);
 
@@ -27,7 +27,7 @@ namespace Warehouse_Dal
         
         }
 
-        public static async Task<int> ExecuteQuery(MySqlCommand Query)
+        public async Task<int> ExecuteQuery(MySqlCommand Query)
         {
             var connection = new MySqlConnection(connectionString);
 
@@ -38,10 +38,9 @@ namespace Warehouse_Dal
             return await Query.ExecuteNonQueryAsync();
         }
 
-        public static async Task TestConn()
+        public async Task TestConn()
         {
             var connection = new MySqlConnection(connectionString);
-
 
             await connection.OpenAsync();
             await connection.CloseAsync();

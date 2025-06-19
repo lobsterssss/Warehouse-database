@@ -13,6 +13,11 @@ namespace Warehouse_Dal
 {
     public class UserRepository : IUserRepository
     {
+        private readonly IDatabaseConnection DatabaseConnection;
+        public UserRepository(IDatabaseConnection databaseConnection)
+        {
+            DatabaseConnection = databaseConnection;
+        }
         public async IAsyncEnumerable<UserDTO> GetAll() 
         {
             MySqlCommand sqlcommend = new MySqlCommand(@"Select * from users;");

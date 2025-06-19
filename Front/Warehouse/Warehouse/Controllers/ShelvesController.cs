@@ -115,14 +115,9 @@ namespace Front_Warehouse.Controllers
             {
                 return await Edit(ID);
             }
-            Shelve Shelve = new Shelve(new ShelveRepository(), new ProductRepository())
-            {
-                ID = ID,
-                Name = ShelveForm.shelve.Name,
-            };
             try
             {
-                await Shelve.EditShelve(int.Parse(ShelveForm.selectedWarehouse));
+                await shelveCollection.EditShelve(ID, ShelveForm.shelve.Name, int.Parse(ShelveForm.selectedWarehouse));
                 return Redirect($"/Shelves/{ID}");
             }
             catch (ArgumentException ex)

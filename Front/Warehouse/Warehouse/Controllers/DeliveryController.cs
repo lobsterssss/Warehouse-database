@@ -21,28 +21,9 @@ namespace WarehousePresentation.Controllers
             this.DeliveryCollection = deliveryCollection;
         }
 
-        [HttpGet("/Warehouse/{warehouseID}/[controller]")]
-        public async Task<IActionResult> IndexAsync(int warehouseID)
+        private static WarehouseViewModel MapWarehouseToWareHouseViewModel(Warehouse bllWarehouse)
         {
-            int userID = (int)HttpContext.Session.GetInt32("UserID");
-            DeliveriesViewModels = await this.DeliveryCollection.GetAllDeliveries(userID, warehouseID).Select(warehouse => new DeliveryViewModel
-            {
-                ID = warehouse.ID,
-            }).ToListAsync();
-            ViewBag.warehouseID = warehouseID;
-            return View(DeliveriesViewModels);
-        }
-
-        [HttpGet("/Warehouse/{warehouseID}/[controller]/create")]
-        public async Task<IActionResult> Create(int warehouseID)
-        {
-            DeliveryFormViewModel DarehousesViewModel = new DeliveryFormViewModel();
-            Warehouse bllWarehouse = await this.warehouseCollection.GetWarehouse(warehouseID);
-            if (bllWarehouse == null)
-            {
-                return Redirect("Error/404");
-            }
-            DarehousesViewModel.WarehouseViewModel = new WarehouseViewModel
+            return new WarehouseViewModel
             {
                 ID = bllWarehouse.ID,
                 Name = bllWarehouse.Name,
@@ -63,15 +44,40 @@ namespace WarehousePresentation.Controllers
                     }).ToList(),
                 }).ToList()
             };
+        }
 
-            DarehousesViewModel.StoreViewModels = await this.StoreCollection.GetAllStores().Select(store => new SelectListItem
+
+        [HttpGet("/Warehouse/{warehouseID}/[controller]")]
+        public async Task<IActionResult> IndexAsync(int warehouseID)
+        {
+            int userID = (int)HttpContext.Session.GetInt32("UserID");
+            DeliveriesViewModels = await this.DeliveryCollection.GetAllDeliveries(userID, warehouseID).Select(warehouse => new DeliveryViewModel
+            {
+                ID = warehouse.ID,
+            }).ToListAsync();
+            ViewBag.warehouseID = warehouseID;
+            return View(DeliveriesViewModels);
+        }
+
+        [HttpGet("/Warehouse/{warehouseID}/[controller]/create")]
+        public async Task<IActionResult> Create(int warehouseID)
+        {
+            DeliveryFormViewModel deliveryFormViewModel = new DeliveryFormViewModel();
+            Warehouse bllWarehouse = await this.warehouseCollection.GetWarehouse(warehouseID);
+            if (bllWarehouse == null)
+            {
+                return Redirect("Error/404");
+            }
+            deliveryFormViewModel.WarehouseViewModel = MapWarehouseToWareHouseViewModel(bllWarehouse);
+
+            deliveryFormViewModel.StoreViewModels = await this.StoreCollection.GetAllStores().Select(store => new SelectListItem
             {
                 Value = store.ID.ToString(),
                 Text = store.Name,
             }).ToListAsync();
 
 
-            return View("DeliveryForm", DarehousesViewModel);
+            return View("DeliveryForm", deliveryFormViewModel);
         }
 
         [HttpPost("/Warehouse/{warehouseID}/[controller]/create")]
@@ -79,7 +85,20 @@ namespace WarehousePresentation.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return await Create(warehouseID);
+                Warehouse bllWarehouse = await this.warehouseCollection.GetWarehouse(warehouseID);
+                if (bllWarehouse == null)
+                {
+                    return Redirect("Error/404");
+                }
+                deliveryFormViewModel.WarehouseViewModel = MapWarehouseToWareHouseViewModel(bllWarehouse);
+
+                deliveryFormViewModel.StoreViewModels = await this.StoreCollection.GetAllStores().Select(store => new SelectListItem
+                {
+                    Value = store.ID.ToString(),
+                    Text = store.Name,
+                }).ToListAsync();
+
+                return View("DeliveryForm", deliveryFormViewModel);
             }
 
             DeliveryDTO deliveryDTO = new DeliveryDTO()
@@ -92,11 +111,25 @@ namespace WarehousePresentation.Controllers
             };
             try
             {
-                int deliveryId = await DeliveryCollection.CreateDelivery(warehouseID, deliveryFormViewModel.selectedStore, deliveryDTO, warehouseCollection);
+                int deliveryId = await DeliveryCollection.CreateDelivery(warehouseID, (int)deliveryFormViewModel.selectedStore, deliveryDTO, warehouseCollection);
             }
             catch (Exception)
             {
-                return await Create(warehouseID);
+
+                Warehouse bllWarehouse = await this.warehouseCollection.GetWarehouse(warehouseID);
+                if (bllWarehouse == null)
+                {
+                    return Redirect("Error/404");
+                }
+                deliveryFormViewModel.WarehouseViewModel = MapWarehouseToWareHouseViewModel(bllWarehouse);
+
+                deliveryFormViewModel.StoreViewModels = await this.StoreCollection.GetAllStores().Select(store => new SelectListItem
+                {
+                    Value = store.ID.ToString(),
+                    Text = store.Name,
+                }).ToListAsync();
+
+                return View("DeliveryForm", deliveryFormViewModel);
             }
             return Redirect($"/Warehouse/{warehouseID}/Delivery");
         }

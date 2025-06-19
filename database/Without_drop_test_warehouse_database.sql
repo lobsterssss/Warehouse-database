@@ -16,12 +16,10 @@
 
 
 -- Dumping database structure for warehouse
-DROP DATABASE IF EXISTS `warehouse`;
-CREATE DATABASE IF NOT EXISTS `warehouse` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
-USE `warehouse`;
+CREATE DATABASE IF NOT EXISTS `testwarehouse` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+USE `testwarehouse`;
 
 -- Dumping structure for table warehouse.deliveries
-DROP TABLE IF EXISTS `deliveries`;
 CREATE TABLE IF NOT EXISTS `deliveries` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Store_ID` int(11) NOT NULL,
@@ -37,7 +35,6 @@ CREATE TABLE IF NOT EXISTS `deliveries` (
 -- Data exporting was unselected.
 
 -- Dumping structure for table warehouse.delivery_products
-DROP TABLE IF EXISTS `delivery_products`;
 CREATE TABLE IF NOT EXISTS `delivery_products` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Delivery_ID` int(11) DEFAULT NULL,
@@ -53,7 +50,6 @@ CREATE TABLE IF NOT EXISTS `delivery_products` (
 -- Data exporting was unselected.
 
 -- Dumping structure for table warehouse.products
-DROP TABLE IF EXISTS `products`;
 CREATE TABLE IF NOT EXISTS `products` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Product_code` varchar(255) DEFAULT NULL,
@@ -70,7 +66,6 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- Data exporting was unselected.
 
 -- Dumping structure for table warehouse.product_type
-DROP TABLE IF EXISTS `product_type`;
 CREATE TABLE IF NOT EXISTS `product_type` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(255) NOT NULL,
@@ -81,7 +76,6 @@ CREATE TABLE IF NOT EXISTS `product_type` (
 -- Data exporting was unselected.
 
 -- Dumping structure for table warehouse.roles
-DROP TABLE IF EXISTS `roles`;
 CREATE TABLE IF NOT EXISTS `roles` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(255) DEFAULT NULL,
@@ -91,7 +85,6 @@ CREATE TABLE IF NOT EXISTS `roles` (
 -- Data exporting was unselected.
 
 -- Dumping structure for table warehouse.shelves
-DROP TABLE IF EXISTS `shelves`;
 CREATE TABLE IF NOT EXISTS `shelves` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(255) DEFAULT NULL,
@@ -104,7 +97,6 @@ CREATE TABLE IF NOT EXISTS `shelves` (
 -- Data exporting was unselected.
 
 -- Dumping structure for table warehouse.stores
-DROP TABLE IF EXISTS `stores`;
 CREATE TABLE IF NOT EXISTS `stores` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(255) DEFAULT NULL,
@@ -116,7 +108,6 @@ CREATE TABLE IF NOT EXISTS `stores` (
 -- Data exporting was unselected.
 
 -- Dumping structure for table warehouse.users
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(255) NOT NULL,
@@ -130,7 +121,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Data exporting was unselected.
 
 -- Dumping structure for table warehouse.user_warehouses
-DROP TABLE IF EXISTS `user_warehouses`;
 CREATE TABLE IF NOT EXISTS `user_warehouses` (
   `User_ID` int(11) DEFAULT NULL,
   `Warehouse_ID` int(11) DEFAULT NULL,
@@ -143,7 +133,6 @@ CREATE TABLE IF NOT EXISTS `user_warehouses` (
 -- Data exporting was unselected.
 
 -- Dumping structure for table warehouse.warehouses
-DROP TABLE IF EXISTS `warehouses`;
 CREATE TABLE IF NOT EXISTS `warehouses` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(255) DEFAULT NULL,

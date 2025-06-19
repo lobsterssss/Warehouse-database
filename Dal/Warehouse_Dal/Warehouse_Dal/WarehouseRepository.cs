@@ -14,7 +14,11 @@ namespace Warehouse_Dal
 {
     public class WarehouseRepository : IWarehouseRepository
     {
-
+        private readonly IDatabaseConnection DatabaseConnection;
+        public WarehouseRepository(IDatabaseConnection databaseConnection)
+        {
+            DatabaseConnection = databaseConnection;
+        }
         public async IAsyncEnumerable<WarehouseDTO> GetAllWarehouse(int userId) 
         {
             MySqlCommand sqlcommend = new MySqlCommand(@"

@@ -23,11 +23,14 @@ USE `warehouse`;
 CREATE TABLE IF NOT EXISTS `deliveries` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Store_ID` int(11) NOT NULL,
+  `Warehouse_ID` int(11) DEFAULT NULL,
   `Status` enum('Deliverd','On_the_way','Being_prepared') DEFAULT 'Being_prepared',
   PRIMARY KEY (`ID`) USING BTREE,
   KEY `Store` (`Store_ID`),
+  KEY `Delivery_Warehouse` (`Warehouse_ID`),
+  CONSTRAINT `Delivery_Warehouse` FOREIGN KEY (`Warehouse_ID`) REFERENCES `warehouses` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `Store` FOREIGN KEY (`Store_ID`) REFERENCES `stores` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Data exporting was unselected.
 
@@ -42,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `delivery_products` (
   KEY `Delivery` (`Delivery_ID`),
   CONSTRAINT `Delivery` FOREIGN KEY (`Delivery_ID`) REFERENCES `deliveries` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `Product` FOREIGN KEY (`Product_ID`) REFERENCES `products` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Data exporting was unselected.
 
@@ -58,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   KEY `Shelve` (`Shelve_ID`),
   CONSTRAINT `Product_Type` FOREIGN KEY (`Product_type_ID`) REFERENCES `product_type` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `Shelve` FOREIGN KEY (`Shelve_ID`) REFERENCES `shelves` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Data exporting was unselected.
 
@@ -68,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `product_type` (
   `Name` varchar(255) NOT NULL,
   `Description` text DEFAULT NULL,
   PRIMARY KEY (`ID`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Data exporting was unselected.
 
@@ -77,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Data exporting was unselected.
 
@@ -89,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `shelves` (
   PRIMARY KEY (`ID`) USING BTREE,
   KEY `warehouse` (`Warehouse_ID`) USING BTREE,
   CONSTRAINT `Warehouse` FOREIGN KEY (`Warehouse_ID`) REFERENCES `warehouses` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Data exporting was unselected.
 
@@ -100,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `stores` (
   `Street` varchar(255) DEFAULT NULL,
   `Postcode` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Data exporting was unselected.
 
@@ -113,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`ID`),
   KEY `Role` (`Role_ID`) USING BTREE,
   CONSTRAINT `Role` FOREIGN KEY (`Role_ID`) REFERENCES `roles` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Data exporting was unselected.
 
@@ -136,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `warehouses` (
   `Postcode` varchar(255) DEFAULT NULL,
   `Street` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Data exporting was unselected.
 

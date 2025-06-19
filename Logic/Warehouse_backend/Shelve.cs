@@ -23,7 +23,7 @@ namespace WarehouseBLL
             {
                 throw new ArgumentException("Shelve name is required", nameof(Name));
             }
-            if (warehouseId != null)
+            if (warehouseId == null)
             {
                 throw new ArgumentException("Warehouse is required", nameof(warehouseId));
             }

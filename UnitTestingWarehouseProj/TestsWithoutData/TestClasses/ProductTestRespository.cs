@@ -26,7 +26,7 @@ namespace UnitTestingWarehouseProj.TestsWithoutData.TestClassesWithoutData
 
         public async IAsyncEnumerable<ProductDTO> GetShelveProducts(int ID)
         {
-            yield return null;
+            yield break;
         }
     }
 }

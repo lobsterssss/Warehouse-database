@@ -30,20 +30,34 @@ namespace Front_Warehouse.Controllers
         [HttpPost("[controller]")]
         public async Task<ActionResult> LoginPost()
         {
+            if (HttpContext.Session.GetInt32("UserID").HasValue)
+            {
+                return Redirect("/");
+            }
+
             if (!ModelState.IsValid)
             {
                 return View("login", user);
             }
-            User result = await LoginManager.Login_User(user.Name, user.Password);
-            if (result != null)
-            {
-                HttpContext.Session.SetInt32("UserID", result.ID);
-                HttpContext.Session.SetInt32("UserRole", (int)result.Role);
 
-                return Redirect("/");
+            try
+            {
+                User result = await LoginManager.Login_User(user.Name, user.Password);
+                if (result != null)
+                {
+                    HttpContext.Session.SetInt32("UserID", result.ID);
+                    HttpContext.Session.SetInt32("UserRole", (int)result.Role);
+
+                    return Redirect("/");
+                }
+                ModelState.AddModelError(string.Empty, "Wrong username or password.");
+                return View("login", user);
             }
-            ModelState.AddModelError(string.Empty, "Wrong username or password.");
-            return View("login", user);
+            catch(ArgumentException ex) 
+            {
+                ModelState.AddModelError(ex.ParamName ?? "", ex.Message);
+                return View("login", user);
+            }
         }
 
         [HttpGet("[controller]/Logout")]

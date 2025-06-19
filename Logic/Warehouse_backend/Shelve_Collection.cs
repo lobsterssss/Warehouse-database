@@ -52,6 +52,15 @@ namespace WarehouseBLL
             return Shelve;
         }
 
+        public async Task EditShelve(int id ,string name, int warehouseID)
+        {
+           await new Shelve(ShelveDal, ProductDal) 
+            {
+                ID = id,
+                Name = name,
+            }.EditShelve(warehouseID);
+        }
+
         public async Task<int> CreateShelve(string name, int warehouseID)
         {
             if (string.IsNullOrWhiteSpace(name))

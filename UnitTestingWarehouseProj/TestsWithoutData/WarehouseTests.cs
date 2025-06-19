@@ -62,12 +62,13 @@ namespace UnitTestingWarehouseProj.TestsWithoutData
         }
 
         [TestMethod]
-        public async Task GetProducts_GivenWarehouse1And4Shelves_ReturnsAllProducts()
+        public async Task GetProducts_GivenWarehouse1And1Shelve_ReturnsNoProducts()
         {
             //Arrange
-            warehouse.Shelves.Add(new Shelve(ShelveTestRespositoryValues, ProductTestRespositoryValues) 
+            warehouse.Shelves = new List<Shelve>();
+            warehouse.Shelves.Add(new Shelve(ShelveTestRespositoryValues, ProductTestRespositoryValues)
             {
-            ID = 1,
+                ID = 1,
             });
 
             //Act

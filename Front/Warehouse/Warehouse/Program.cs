@@ -8,24 +8,24 @@ using WarehouseDal;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Logging.ClearProviders();
-builder.Logging.AddDebug();
 builder.Configuration
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true) // default
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
     .AddEnvironmentVariables();
 
-DatabaseConnection.Initialize(builder.Configuration);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<UserCollection>();
+builder.Services.AddScoped<Warehouse>();
 builder.Services.AddScoped<WarehouseCollection>();
 builder.Services.AddScoped<StoreCollection>();
 builder.Services.AddScoped<DeliveryCollection>();
 builder.Services.AddScoped<ShelveCollection>();
 builder.Services.AddScoped<Login>();
+
+builder.Services.AddSingleton<IDatabaseConnection, DatabaseConnection>();
 
 builder.Services.AddScoped<IDeliveryRepository, DeliveryRepository>();
 builder.Services.AddScoped<IStoreRepository, StoreRepository>();
@@ -73,8 +73,6 @@ if (!app.Environment.IsDevelopment())
 
     app.UseHsts();
 }
-
-//app.UseAuthMiddleware();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

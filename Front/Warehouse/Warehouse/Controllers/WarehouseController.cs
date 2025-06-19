@@ -4,6 +4,7 @@ using Front_Warehouse.Models;
 using WarehouseBLL;
 using System.Threading.Tasks;
 using Warehouse_Dal;
+using static WarehouseBLL.Role;
 
 namespace Front_Warehouse.Controllers
 {
@@ -12,9 +13,10 @@ namespace Front_Warehouse.Controllers
     {
         private readonly WarehouseCollection warehouseCollection;
 
-        public WarehouseController(WarehouseCollection warehouseCollection)
+        public WarehouseController(WarehouseCollection warehouseCollection, Warehouse warehouse)
         {
             this.warehouseCollection = warehouseCollection;
+
 
         }
 
@@ -68,6 +70,10 @@ namespace Front_Warehouse.Controllers
         [HttpGet("/Create")]
         public async Task<IActionResult> Create()
         {
+            if (HttpContext.Session.GetInt32("UserRole") == (int)Roles.admin)
+            {
+                return Redirect("/");
+            }
             return View("WarehouseForm");
         }
 
@@ -77,6 +83,10 @@ namespace Front_Warehouse.Controllers
         [HttpPost("/Create")]
         public async Task<IActionResult> CreatePost()
         {
+            if (HttpContext.Session.GetInt32("UserRole") == (int)Roles.admin)
+            {
+                return Redirect("/");
+            }
             if (!ModelState.IsValid)
             {
                 return View("WarehouseForm", Warehouse);
@@ -99,6 +109,10 @@ namespace Front_Warehouse.Controllers
         [HttpGet("/{ID}/Edit")]
         public async Task<IActionResult> Edit(int ID)
         {
+            if (HttpContext.Session.GetInt32("UserRole") == (int)Roles.admin)
+            {
+                return Redirect("/");
+            }
             int userID = (int)HttpContext.Session.GetInt32("UserID");
             Warehouse warehouse = await this.warehouseCollection.GetWarehouse(ID);
             WarehouseViewModel warehousesViewModel = new WarehouseViewModel
@@ -112,21 +126,20 @@ namespace Front_Warehouse.Controllers
         }
 
         [HttpPost("/{ID}/Edit")]
-        public async Task<IActionResult> EditPost()
+        public async Task<IActionResult> EditPost(int ID)
         {
+            if (HttpContext.Session.GetInt32("UserRole") == (int)Roles.admin)
+            {
+                return Redirect("/");
+            }
             if (!ModelState.IsValid)
             {
                 return View("WarehouseForm", Warehouse);
             }
-            Warehouse warehouse = new Warehouse(new WarehouseRepository(), new ShelveRepository(), new ProductRepository() ) { 
-                ID = Warehouse.ID,
-                Name = Warehouse.Name,
-                Postcode= Warehouse.Postcode,
-                Street = Warehouse.Street,
-            };
+
             try
             {
-                await warehouse.EditWarehouse(Warehouse.Name, Warehouse.Postcode, Warehouse.Street);
+                await warehouseCollection.EditWarehouse(ID, Warehouse.Name, Warehouse.Postcode, Warehouse.Street);
                 return Redirect($"/{Warehouse.ID}/View");
 
             }
@@ -140,6 +153,10 @@ namespace Front_Warehouse.Controllers
         [HttpPost("/{ID}/Delete")]
         public async Task<IActionResult> Delete(int ID)
         {
+            if (HttpContext.Session.GetInt32("UserRole") == (int)Roles.admin)
+            {
+                return Redirect("/");
+            }
             await warehouseCollection.DeleteWarehouse(ID);
 
             return Redirect("/");

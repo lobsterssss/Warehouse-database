@@ -11,6 +11,11 @@ namespace Warehouse_Dal
 {
     public class ProductRepository : IProductRepository
     {
+        private readonly IDatabaseConnection DatabaseConnection;
+        public ProductRepository(IDatabaseConnection databaseConnection)
+        {
+            DatabaseConnection = databaseConnection;
+        }
         public async IAsyncEnumerable<ProductDTO> GetShelveProducts(int ID)
         {
             MySqlCommand sqlcommend = new MySqlCommand(

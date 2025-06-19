@@ -11,6 +11,11 @@ namespace Warehouse_Dal
 {
     public class LoginRepository : ILoginRepository
     {
+        private readonly IDatabaseConnection DatabaseConnection;
+        public LoginRepository(IDatabaseConnection databaseConnection)
+        {
+            DatabaseConnection = databaseConnection;
+        }
         public async IAsyncEnumerable<UserDTO> LoginRequest(string Name)
         {
             MySqlCommand sqlcommend = new MySqlCommand(@"Select * from users where Name = @Name;");

@@ -60,6 +60,15 @@ namespace WarehouseBLL
             return Warehouse;
         }
 
+        public async Task EditWarehouse(int id, string name, string postcode, string street)
+        {
+            await new Warehouse(this.WarehouseDal, this.ShelveDal, this.ProductDal)
+            {
+                ID = id,
+            }.EditWarehouse(name, postcode, street);
+
+        }
+
         public async Task<int> CreateWarehouse(string name, string postcode, string street)
         {
             if (string.IsNullOrWhiteSpace(name))

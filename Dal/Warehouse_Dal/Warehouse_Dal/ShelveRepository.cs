@@ -11,6 +11,11 @@ namespace Warehouse_Dal
 {
     public class ShelveRepository : IShelveRepository
     {
+        private readonly IDatabaseConnection DatabaseConnection;
+        public ShelveRepository(IDatabaseConnection databaseConnection)
+        {
+            DatabaseConnection = databaseConnection;
+        }
         public async IAsyncEnumerable<ShelveDTO> GetWarehouseShelves(int id)
         {
             MySqlCommand sqlcommend = new MySqlCommand(

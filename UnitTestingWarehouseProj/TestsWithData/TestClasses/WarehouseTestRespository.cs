@@ -11,7 +11,7 @@ namespace UnitTestingWarehouseProj.TestsWithData.TestClasses
 {
     public class WarehouseTestRespository : IWarehouseRepository
     {
-        public WarehouseDTO LastUpdatedDto;
+        public WarehouseDTO LastGivenDto;
         public int LastDeletedValue;
         public async IAsyncEnumerable<int> CreateWarehouse(WarehouseDTO dTOWarehouse)
         {
@@ -53,7 +53,7 @@ namespace UnitTestingWarehouseProj.TestsWithData.TestClasses
 
         public async Task UpdateWarehouse(WarehouseDTO dTOWarehouse)
         {
-            LastUpdatedDto = dTOWarehouse;
+            LastGivenDto = dTOWarehouse;
         }
     }
 }

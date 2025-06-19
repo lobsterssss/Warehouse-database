@@ -11,8 +11,9 @@ namespace UnitTestingWarehouseProj.TestsWithData.TestClasses
 {
     public class ShelveTestRespository : IShelveRepository
     {
-        public ShelveDTO LastUpdatedDto;
+        public ShelveDTO LastGivenDto;
         public int LastDeletedValue;
+        public int WarehouseId;
 
         public async IAsyncEnumerable<int> CreateShelve(ShelveDTO dTOShelve, int warehouseID)
         {
@@ -59,7 +60,8 @@ namespace UnitTestingWarehouseProj.TestsWithData.TestClasses
 
         public async Task UpdateShelve(ShelveDTO dTOShelve, int warehouseId)
         {
-            throw new NotImplementedException();
+            LastGivenDto = dTOShelve;
+            WarehouseId = warehouseId;
         }
     }
 }

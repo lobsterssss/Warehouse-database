@@ -48,9 +48,9 @@ namespace UnitTestingWarehouseProj.TestsWithData
             await warehouse.EditWarehouse("warehouse 3", "BS5421", "Street");
 
             //Assert
-            Assert.AreEqual("warehouse 3", WarehouseTestRespositoryValues.LastUpdatedDto.Name);
-            Assert.AreEqual("BS5421", WarehouseTestRespositoryValues.LastUpdatedDto.Postcode);
-            Assert.AreEqual("Street", WarehouseTestRespositoryValues.LastUpdatedDto.Street);
+            Assert.AreEqual("warehouse 3", WarehouseTestRespositoryValues.LastGivenDto.Name);
+            Assert.AreEqual("BS5421", WarehouseTestRespositoryValues.LastGivenDto.Postcode);
+            Assert.AreEqual("Street", WarehouseTestRespositoryValues.LastGivenDto.Street);
         }
         [TestMethod]
         public async Task GetShelves_GivenWarehouse1_ReturnsAllShelvesWarehouse1()
