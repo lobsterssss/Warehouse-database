@@ -1,5 +1,7 @@
 ﻿using InterfacesDal;
 using InterfacesDal.DTOs;
+using System.Security.Cryptography;
+using System.Text;
 using static WarehouseBLL.Role;
 
 namespace WarehouseBLL
@@ -39,7 +41,7 @@ namespace WarehouseBLL
                     Role = (Roles)user.Role_ID,
                 };
             }
-            if (User.Name == null || CheckPassword(User.Password , password))
+            if (User.Name == null || !CheckPassword(User.Password, password))
             {
                 return null;
             }

@@ -7,7 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Dal\Warehouse_Dal\Warehouse_Dal\WarehouseDal.csproj" />
+    <PackageReference Include="System.Linq.Async" Version="6.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\interface\Database_interface\InterfacesDal.csproj" />
   </ItemGroup>
 

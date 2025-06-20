@@ -1,7 +1,6 @@
 ﻿using InterfacesDal;
 using InterfacesDal.DTOs;
 using System.Linq;
-using WarehouseDal;
 using static WarehouseBLL.Statuses;
 
 namespace WarehouseBLL
