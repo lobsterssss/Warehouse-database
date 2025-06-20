@@ -39,11 +39,32 @@ namespace WarehouseBLL
                     Role = (Roles)user.Role_ID,
                 };
             }
-            if (User.Name == null || !User.Login(password))
+            if (User.Name == null || CheckPassword(User.Password , password))
             {
                 return null;
             }
             return User;
+        }
+
+        private bool CheckPassword(string userPassword, string givenPassword)
+        {
+            return userPassword == HashString(givenPassword);
+        }
+
+        private static string HashString(string input)
+        {
+            //stolen from
+            //https://www.geeksforgeeks.org/hash-function-for-string-data-in-c-sharp/
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in bytes)
+                {
+                    builder.Append(b.ToString("x2")); // Convert to hexadecimal string
+                }
+                return builder.ToString();
+            }
         }
     }
 }
